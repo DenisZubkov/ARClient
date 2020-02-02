@@ -10,10 +10,12 @@ import UIKit
 
 class CatalogListTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var urlLabel: UILabel!
-    @IBOutlet weak var publicLabel: UILabel!
+    @IBOutlet weak var thumbnailImageView: UIImageView!
     
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var urlTextView: UITextView!
+    @IBOutlet weak var publicSwitch: UISwitch!
+    @IBOutlet weak var userLabel: UILabel!
     
     
     override func awakeFromNib() {

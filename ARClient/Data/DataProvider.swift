@@ -69,6 +69,34 @@ class DataProvider {
         dataTask.resume()
     }
     
-    
+    func downloadPhoto(url: URL, completion: @escaping (UIImage?) -> Void) {
+        let request = URLRequest(url: url)
+        let dataTask = URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
+            
+            guard error == nil,
+                data != nil,
+                let response = response as? HTTPURLResponse,
+                response.statusCode == 200,
+                let _ = self else {
+                    DispatchQueue.main.async {
+                        completion(nil)
+                    }
+                    return
+            }
+            guard let data = data else { return }
+             guard let image = UIImage(data: data) else {
+                DispatchQueue.main.async {
+                    completion(nil)
+                }
+                return
+            }
+            DispatchQueue.main.async {
+                completion(image)
+            }
+        }
+        dataTask.resume()
+        
+    }
+
     
 }

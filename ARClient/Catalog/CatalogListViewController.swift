@@ -35,9 +35,19 @@ class CatalogListViewController: UIViewController, UITableViewDelegate, UITableV
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CatalogCell", for: indexPath) as! CatalogListTableViewCell
         let object = rootViewController.objects[indexPath.row]
-        cell.nameLabel.text = String(object.id ?? -1)
-        cell.urlLabel.text = object.url.absoluteString
-        cell.publicLabel.text = String(object.ispublic ?? 0)
+        cell.nameLabel.text = object.name
+        cell.urlTextView.text = object.url.absoluteString
+        if let user = rootViewController.users.filter({$0.id == object.userId}).first {
+            cell.userLabel.text = user.username
+        }
+        if let url = object.thumbnail {
+            dataProvider.downloadData(url: url) { data in
+                if let data = data {
+                    cell.thumbnailImageView.image = UIImage(data: data)
+                }
+            }
+        }
+        
         return cell
     }
     
