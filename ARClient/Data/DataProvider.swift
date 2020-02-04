@@ -98,5 +98,27 @@ class DataProvider {
         
     }
 
+    func saveDataToFile(fileName: String, fileExt: String, data: Data) -> Bool{
+        let DocumentDirURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+        
+        let fileURL = DocumentDirURL.appendingPathComponent(fileName).appendingPathExtension(fileExt)
+        do {
+            try data.write(to: fileURL)
+            return true
+        } catch {
+            return false
+        }
+    }
     
+    func getUrlFile(fileName: String, fileExt: String) -> URL? {
+        let nsDocumentDirectory = FileManager.SearchPathDirectory.documentDirectory
+        let nsUserDomainMask    = FileManager.SearchPathDomainMask.userDomainMask
+        let paths               = NSSearchPathForDirectoriesInDomains(nsDocumentDirectory, nsUserDomainMask, true)
+        if let dirPath          = paths.first
+        {
+            let url = URL(fileURLWithPath: dirPath).appendingPathComponent("\(fileName).\(fileExt)")
+            return url
+        }
+        return nil
+    }
 }
