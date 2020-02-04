@@ -17,17 +17,34 @@ QLPreviewControllerDelegate, QLPreviewControllerDataSource {
     let gs = GlobalSettings()
     let rootViewController = AppDelegate.shared.rootViewController
     let dataProvider = DataProvider()
-    var currentIndexPathRow = 0
+    var currentObject: Object?
     var alert: UIAlertController!
     
     @IBOutlet weak var catalogTableView: UITableView!
     
+    func saveFile() {
+        dataProvider.fileLocation = { location in
+            print(location.absoluteString)
+            guard let name = self.currentObject?.name else { return }
+            let DocumentDirURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+            let fileURL = DocumentDirURL.appendingPathComponent(name).appendingPathExtension("usdz")
+            // delete original copy
+            try? FileManager.default.removeItem(at: fileURL)
+            // copy from temp to Document
+            do {
+                try FileManager.default.copyItem(at: location, to: fileURL)
+                self.viewObject()
+                print("File exist? : \(FileManager.default.fileExists(atPath: fileURL.path))")
+            } catch let error {
+                print("Copy Error: \(error.localizedDescription)")
+            }
+        }
+    }
     
     override func viewDidLoad() {
-           super.viewDidLoad()
-           
-           // Do any additional setup after loading the view.
-       }
+        super.viewDidLoad()
+        saveFile()
+    }
        
     override func viewDidAppear(_ animated: Bool) {
         rootViewController.loadObjectsFromWbeb(tableView: catalogTableView)
@@ -57,36 +74,17 @@ QLPreviewControllerDelegate, QLPreviewControllerDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        currentIndexPathRow = indexPath.row
-        let object = rootViewController.objects[currentIndexPathRow]
+        currentObject = rootViewController.objects[indexPath.row]
         let fileManager = FileManager.default
-        if let name = object.name,
-            let url = dataProvider.getUrlFile(fileName: "test", fileExt: "usdz"),
-            fileManager.fileExists(atPath: url.absoluteString){
-            
-             
-                let previewController = QLPreviewController()
-                previewController.dataSource = self
-                previewController.delegate = self
-                present(previewController, animated: true)
+        if let name = currentObject?.name,
+            let url = dataProvider.getUrlFile(fileName: name, fileExt: "usdz"),
+            fileManager.fileExists(atPath: url.path){
+            viewObject()
             
         } else {
-            let url = rootViewController.objects[currentIndexPathRow].url
+            guard let url = currentObject?.url else { return }
             dataProvider.startDownload(url: url)
             showDownloadng()
-//            dataProvider.downloadData(url: url) { data in
-//                if let data = data, let name = object.name {
-//                    let isSave = self.dataProvider.saveDataToFile(fileName: name, fileExt: "usdz", data: data)
-//                    print(isSave)
-//                    let previewController = QLPreviewController()
-//                    previewController.dataSource = self
-//                    previewController.delegate = self
-//                    DispatchQueue.main.async {
-//                        self.present(previewController, animated: true)
-//                    }
-//                }
-//
-//            }
         }
         
         
@@ -95,13 +93,21 @@ QLPreviewControllerDelegate, QLPreviewControllerDataSource {
 
 // MARK: - QuikPreview
     
+    func viewObject() {
+        let previewController = QLPreviewController()
+        previewController.dataSource = self
+        previewController.delegate = self
+        previewController.navigationItem.rightBarButtonItems = []
+        self.present(previewController, animated: true)
+    }
+    
    func numberOfPreviewItems(in controller: QLPreviewController) -> Int {
        return 1
    }
    
    func previewController(_ controller: QLPreviewController, previewItemAt index: Int) -> QLPreviewItem {
-    let object = rootViewController.objects[currentIndexPathRow]
-    let url = dataProvider.getUrlFile(fileName: "test", fileExt: "usdz")!
+    let name  = self.currentObject?.name ?? "no_model"
+    let url = dataProvider.getUrlFile(fileName: name, fileExt: "usdz")!
     return url as QLPreviewItem
    }
 

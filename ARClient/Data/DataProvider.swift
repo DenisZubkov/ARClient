@@ -165,15 +165,19 @@ extension DataProvider: URLSessionDownloadDelegate {
     
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
         print("Did finish downloading: \(location.absoluteString)")
+        guard let url = downloadTask.originalRequest?.url else { return }
+        let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let destinationURL = documentsPath.appendingPathComponent(url.lastPathComponent)
+        // delete original copy
+        try? FileManager.default.removeItem(at: destinationURL)
+        // copy from temp to Document
         do {
-            let data = try Data(contentsOf: location)
-            let _ = self.saveDataToFile(fileName: "test", fileExt: "usdz", data: data)
-            
+            try FileManager.default.copyItem(at: location, to: destinationURL)
         } catch let error {
-            print("Error: " + error.localizedDescription)
+            print("Copy Error: \(error.localizedDescription)")
         }
         DispatchQueue.main.async {
-            self.fileLocation?(location)
+            self.fileLocation?(destinationURL)
             
         }
     }
