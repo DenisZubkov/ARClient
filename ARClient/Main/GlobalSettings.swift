@@ -12,7 +12,7 @@ import UIKit
 class GlobalSettings {
     
     let scheme = "http"
-    let host = "10.0.1.7"
+    let host = "10.5.112.7"
     let port = 8088
     let checkPath = "/check"
     
