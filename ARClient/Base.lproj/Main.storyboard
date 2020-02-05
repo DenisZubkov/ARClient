@@ -54,7 +54,7 @@
             </objects>
             <point key="canvasLocation" x="1786" y="516"/>
         </scene>
-        <!--Catalog List View Controller-->
+        <!--Модели-->
         <scene sceneID="hiK-Bs-DbT">
             <objects>
                 <viewController modalPresentationStyle="fullScreen" id="x8M-1P-iob" customClass="CatalogListViewController" customModule="ARClient" customModuleProvider="target" sceneMemberID="viewController">
@@ -203,9 +203,6 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" secondItem="PEK-1f-znu" secondAttribute="height" multiplier="2.04651" id="ozZ-iJ-rFe"/>
-                                                            </constraints>
                                                         </stackView>
                                                     </subviews>
                                                     <constraints>
@@ -259,7 +256,10 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ys7-ad-Mxg"/>
                     </view>
-                    <navigationItem key="navigationItem" id="pwJ-Ei-SEQ"/>
+                    <navigationItem key="navigationItem" title="Модели" id="pwJ-Ei-SEQ">
+                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="h7z-jY-LAl"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="6Fb-Ud-C8S"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="catalogTableView" destination="Npe-kR-vgJ" id="WoH-rR-gT9"/>
                     </connections>
