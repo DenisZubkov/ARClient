@@ -19,6 +19,7 @@ QLPreviewControllerDelegate, QLPreviewControllerDataSource {
     let dataProvider = DataProvider()
     var currentObject: Object?
     var alert: UIAlertController!
+    let fileManager = FileManager.default
     
     @IBOutlet weak var catalogTableView: UITableView!
     
@@ -58,10 +59,13 @@ QLPreviewControllerDelegate, QLPreviewControllerDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CatalogCell", for: indexPath) as! CatalogListTableViewCell
         let object = rootViewController.objects[indexPath.row]
         cell.nameLabel.text = object.name
-        cell.urlTextView.text = object.url.absoluteString
+        cell.isPublicLabel.text = object.ispublic ?? 0 == 1 ? "Полный" : " Приватный"
         if let user = rootViewController.users.filter({$0.id == object.userId}).first {
             cell.userLabel.text = user.username
         }
+        cell.thumbnailImageView.layer.cornerRadius = 44
+        cell.thumbnailImageView.layer.borderColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+        cell.thumbnailImageView.layer.borderWidth = 2
         if let url = object.thumbnail {
             dataProvider.downloadData(url: url) { data in
                 if let data = data {
@@ -69,13 +73,31 @@ QLPreviewControllerDelegate, QLPreviewControllerDataSource {
                 }
             }
         }
+        cell.isServerLoadView.layer.cornerRadius = 8
+        cell.isServerLoadView.layer.borderColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+        cell.isServerLoadView.layer.borderWidth = 1
+        cell.isAppLoadView.layer.cornerRadius = 8
+        cell.isAppLoadView.layer.borderColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+        cell.isAppLoadView.layer.borderWidth = 1
+        if let name = object.name,
+            let url = dataProvider.getUrlFile(fileName: name, fileExt: "usdz"),
+            fileManager.fileExists(atPath: url.path){
+            cell.isAppLoadView.backgroundColor = UIColor.green
+        } else {
+            cell.isAppLoadView.backgroundColor = UIColor.red
+        }
+        if let name = object.name {
+            cell.isServerLoadView.backgroundColor = UIColor.red
+        } else {
+            cell.isServerLoadView.backgroundColor = UIColor.green
+        }
+            
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         currentObject = rootViewController.objects[indexPath.row]
-        let fileManager = FileManager.default
         if let name = currentObject?.name,
             let url = dataProvider.getUrlFile(fileName: name, fileExt: "usdz"),
             fileManager.fileExists(atPath: url.path){

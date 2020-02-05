@@ -13,9 +13,11 @@ class CatalogListTableViewCell: UITableViewCell {
     @IBOutlet weak var thumbnailImageView: UIImageView!
     
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var urlTextView: UITextView!
-    @IBOutlet weak var publicSwitch: UISwitch!
     @IBOutlet weak var userLabel: UILabel!
+    @IBOutlet weak var isPublicLabel: UILabel!
+    @IBOutlet weak var urlSourceLabel: UILabel!
+    @IBOutlet weak var isAppLoadView: UIImageView!
+    @IBOutlet weak var isServerLoadView: UIImageView!
     
     
     override func awakeFromNib() {
