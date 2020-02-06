@@ -24,7 +24,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         bgSessionCompletionHandler = completionHandler
     }
 
-    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
+        // handle the file here
+        print(url.absoluteString)
+        return true // or false based on whether you were successful or not
+    }
 }
 
 
