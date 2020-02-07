@@ -86,7 +86,7 @@ QLPreviewControllerDelegate, QLPreviewControllerDataSource {
         } else {
             cell.isAppLoadView.backgroundColor = UIColor.red
         }
-        if let name = object.name {
+        if let _ = object.name {
             cell.isServerLoadView.backgroundColor = UIColor.red
         } else {
             cell.isServerLoadView.backgroundColor = UIColor.green

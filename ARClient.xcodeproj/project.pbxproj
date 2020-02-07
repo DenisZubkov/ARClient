@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7AB1DA2623ED795F00D27733 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AF140B323E5DB0C00FCAE7B /* Main.storyboard */; };
+		7AB1DA2E23ED7A7100D27733 /* GlobalSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF140ED23E6A60900FCAE7B /* GlobalSettings.swift */; };
+		7AB1DA3023ED90C900D27733 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AFA642C23EC942500B11BFD /* MainInterface.storyboard */; };
+		7AB1DA3123ED90CC00D27733 /* USDZModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB1DA1923ED50C600D27733 /* USDZModel.swift */; };
+		7AB1DA3223ED90CF00D27733 /* ActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFA642A23EC942500B11BFD /* ActionViewController.swift */; };
+		7AB1DA3323ED94AA00D27733 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF140E823E6A0DF00FCAE7B /* User.swift */; };
+		7AB1DA3423ED94AD00D27733 /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF140EA23E6A0ED00FCAE7B /* Object.swift */; };
 		7ACC444B23E6BC09006F41A3 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ACC444A23E6BC09006F41A3 /* Token.swift */; };
 		7AD9856B23E6C60900FA06BD /* CatalogListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD9856A23E6C60900FA06BD /* CatalogListViewController.swift */; };
 		7AD9856D23E6C63500FA06BD /* CatalogListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD9856C23E6C63500FA06BD /* CatalogListTableViewCell.swift */; };
@@ -23,8 +30,6 @@
 		7AF140F023E6AA7D00FCAE7B /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF140EF23E6AA7D00FCAE7B /* DataProvider.swift */; };
 		7AFA642123EC830000B11BFD /* ARKit.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 7AFA642023EC830000B11BFD /* ARKit.jpeg */; };
 		7AFA642923EC942500B11BFD /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AFA642823EC942500B11BFD /* Media.xcassets */; };
-		7AFA642B23EC942500B11BFD /* ActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFA642A23EC942500B11BFD /* ActionViewController.swift */; };
-		7AFA642E23EC942500B11BFD /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AFA642C23EC942500B11BFD /* MainInterface.storyboard */; };
 		7AFA643223EC942500B11BFD /* ARLoad.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 7AFA642623EC942500B11BFD /* ARLoad.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
@@ -53,6 +58,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7AB1DA1923ED50C600D27733 /* USDZModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = USDZModel.swift; sourceTree = "<group>"; };
 		7ACC444A23E6BC09006F41A3 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		7AD9856A23E6C60900FA06BD /* CatalogListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogListViewController.swift; sourceTree = "<group>"; };
 		7AD9856C23E6C63500FA06BD /* CatalogListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogListTableViewCell.swift; sourceTree = "<group>"; };
@@ -181,6 +187,7 @@
 			children = (
 				7AFA642823EC942500B11BFD /* Media.xcassets */,
 				7AFA642A23EC942500B11BFD /* ActionViewController.swift */,
+				7AB1DA1923ED50C600D27733 /* USDZModel.swift */,
 				7AFA642C23EC942500B11BFD /* MainInterface.storyboard */,
 				7AFA642F23EC942500B11BFD /* Info.plist */,
 			);
@@ -279,8 +286,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AB1DA2623ED795F00D27733 /* Main.storyboard in Resources */,
+				7AB1DA3023ED90C900D27733 /* MainInterface.storyboard in Resources */,
 				7AFA642923EC942500B11BFD /* Media.xcassets in Resources */,
-				7AFA642E23EC942500B11BFD /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -309,7 +317,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7AFA642B23EC942500B11BFD /* ActionViewController.swift in Sources */,
+				7AB1DA3423ED94AD00D27733 /* Object.swift in Sources */,
+				7AB1DA3323ED94AA00D27733 /* User.swift in Sources */,
+				7AB1DA2E23ED7A7100D27733 /* GlobalSettings.swift in Sources */,
+				7AB1DA3123ED90CC00D27733 /* USDZModel.swift in Sources */,
+				7AB1DA3223ED90CF00D27733 /* ActionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
