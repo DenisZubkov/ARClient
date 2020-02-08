@@ -7,17 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7AB1DA2623ED795F00D27733 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AF140B323E5DB0C00FCAE7B /* Main.storyboard */; };
-		7AB1DA2E23ED7A7100D27733 /* GlobalSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF140ED23E6A60900FCAE7B /* GlobalSettings.swift */; };
-		7AB1DA3023ED90C900D27733 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AFA642C23EC942500B11BFD /* MainInterface.storyboard */; };
-		7AB1DA3123ED90CC00D27733 /* USDZModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB1DA1923ED50C600D27733 /* USDZModel.swift */; };
-		7AB1DA3223ED90CF00D27733 /* ActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFA642A23EC942500B11BFD /* ActionViewController.swift */; };
-		7AB1DA3323ED94AA00D27733 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF140E823E6A0DF00FCAE7B /* User.swift */; };
-		7AB1DA3423ED94AD00D27733 /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF140EA23E6A0ED00FCAE7B /* Object.swift */; };
+		7A5FB0AF23EE932400C6B245 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5FB0AE23EE932400C6B245 /* ShareViewController.swift */; };
+		7A5FB0B223EE932400C6B245 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A5FB0B023EE932400C6B245 /* MainInterface.storyboard */; };
+		7A5FB0B623EE932400C6B245 /* ARLoad.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 7A5FB0AC23EE932400C6B245 /* ARLoad.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		7ACC444B23E6BC09006F41A3 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ACC444A23E6BC09006F41A3 /* Token.swift */; };
 		7AD9856B23E6C60900FA06BD /* CatalogListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD9856A23E6C60900FA06BD /* CatalogListViewController.swift */; };
 		7AD9856D23E6C63500FA06BD /* CatalogListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD9856C23E6C63500FA06BD /* CatalogListTableViewCell.swift */; };
 		7AD9856F23E6D15400FA06BD /* UsersListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD9856E23E6D15400FA06BD /* UsersListViewController.swift */; };
+		7AEB48D323EE983F007BBCAB /* ARClientModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7AEB48D123EE983F007BBCAB /* ARClientModel.xcdatamodeld */; };
 		7AF140AE23E5DB0C00FCAE7B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF140AD23E5DB0C00FCAE7B /* AppDelegate.swift */; };
 		7AF140B523E5DB0C00FCAE7B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AF140B323E5DB0C00FCAE7B /* Main.storyboard */; };
 		7AF140B723E5DB0E00FCAE7B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AF140B623E5DB0E00FCAE7B /* Assets.xcassets */; };
@@ -29,16 +26,14 @@
 		7AF140EE23E6A60900FCAE7B /* GlobalSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF140ED23E6A60900FCAE7B /* GlobalSettings.swift */; };
 		7AF140F023E6AA7D00FCAE7B /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF140EF23E6AA7D00FCAE7B /* DataProvider.swift */; };
 		7AFA642123EC830000B11BFD /* ARKit.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 7AFA642023EC830000B11BFD /* ARKit.jpeg */; };
-		7AFA642923EC942500B11BFD /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AFA642823EC942500B11BFD /* Media.xcassets */; };
-		7AFA643223EC942500B11BFD /* ARLoad.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 7AFA642623EC942500B11BFD /* ARLoad.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		7AFA643023EC942500B11BFD /* PBXContainerItemProxy */ = {
+		7A5FB0B423EE932400C6B245 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7AF140A223E5DB0C00FCAE7B /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 7AFA642523EC942500B11BFD;
+			remoteGlobalIDString = 7A5FB0AB23EE932400C6B245;
 			remoteInfo = ARLoad;
 		};
 /* End PBXContainerItemProxy section */
@@ -50,7 +45,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				7AFA643223EC942500B11BFD /* ARLoad.appex in Embed App Extensions */,
+				7A5FB0B623EE932400C6B245 /* ARLoad.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -58,11 +53,17 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		7AB1DA1923ED50C600D27733 /* USDZModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = USDZModel.swift; sourceTree = "<group>"; };
+		7A5FB0AC23EE932400C6B245 /* ARLoad.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ARLoad.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A5FB0AE23EE932400C6B245 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		7A5FB0B123EE932400C6B245 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		7A5FB0B323EE932400C6B245 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7A5FB0BA23EE936A00C6B245 /* ARLoad.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ARLoad.entitlements; sourceTree = "<group>"; };
+		7A5FB0BB23EE93BD00C6B245 /* ARClient.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ARClient.entitlements; sourceTree = "<group>"; };
 		7ACC444A23E6BC09006F41A3 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		7AD9856A23E6C60900FA06BD /* CatalogListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogListViewController.swift; sourceTree = "<group>"; };
 		7AD9856C23E6C63500FA06BD /* CatalogListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogListTableViewCell.swift; sourceTree = "<group>"; };
 		7AD9856E23E6D15400FA06BD /* UsersListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersListViewController.swift; sourceTree = "<group>"; };
+		7AEB48D223EE983F007BBCAB /* ARClientModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ARClientModel.xcdatamodel; sourceTree = "<group>"; };
 		7AF140AA23E5DB0C00FCAE7B /* ARClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AF140AD23E5DB0C00FCAE7B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7AF140B423E5DB0C00FCAE7B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -76,22 +77,17 @@
 		7AF140ED23E6A60900FCAE7B /* GlobalSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSettings.swift; sourceTree = "<group>"; };
 		7AF140EF23E6AA7D00FCAE7B /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
 		7AFA642023EC830000B11BFD /* ARKit.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ARKit.jpeg; sourceTree = "<group>"; };
-		7AFA642623EC942500B11BFD /* ARLoad.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ARLoad.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		7AFA642823EC942500B11BFD /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
-		7AFA642A23EC942500B11BFD /* ActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionViewController.swift; sourceTree = "<group>"; };
-		7AFA642D23EC942500B11BFD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
-		7AFA642F23EC942500B11BFD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		7AF140A723E5DB0C00FCAE7B /* Frameworks */ = {
+		7A5FB0A923EE932400C6B245 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7AFA642323EC942500B11BFD /* Frameworks */ = {
+		7AF140A723E5DB0C00FCAE7B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -101,6 +97,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7A5FB0AD23EE932400C6B245 /* ARLoad */ = {
+			isa = PBXGroup;
+			children = (
+				7A5FB0BA23EE936A00C6B245 /* ARLoad.entitlements */,
+				7A5FB0AE23EE932400C6B245 /* ShareViewController.swift */,
+				7A5FB0B023EE932400C6B245 /* MainInterface.storyboard */,
+				7A5FB0B323EE932400C6B245 /* Info.plist */,
+			);
+			path = ARLoad;
+			sourceTree = "<group>";
+		};
 		7ACC437B23E6B3C4006F41A3 /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -131,7 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				7AF140AC23E5DB0C00FCAE7B /* ARClient */,
-				7AFA642723EC942500B11BFD /* ARLoad */,
+				7A5FB0AD23EE932400C6B245 /* ARLoad */,
 				7AF140AB23E5DB0C00FCAE7B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -140,7 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				7AF140AA23E5DB0C00FCAE7B /* ARClient.app */,
-				7AFA642623EC942500B11BFD /* ARLoad.appex */,
+				7A5FB0AC23EE932400C6B245 /* ARLoad.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -148,6 +155,7 @@
 		7AF140AC23E5DB0C00FCAE7B /* ARClient */ = {
 			isa = PBXGroup;
 			children = (
+				7A5FB0BB23EE93BD00C6B245 /* ARClient.entitlements */,
 				7AF140E723E6A06000FCAE7B /* Main */,
 				7ACC437B23E6B3C4006F41A3 /* Data */,
 				7AD9856923E6C5CF00FA06BD /* Catalog */,
@@ -175,6 +183,7 @@
 		7AF140EC23E6A0FC00FCAE7B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7AEB48D123EE983F007BBCAB /* ARClientModel.xcdatamodeld */,
 				7AF140E823E6A0DF00FCAE7B /* User.swift */,
 				7AF140EA23E6A0ED00FCAE7B /* Object.swift */,
 				7ACC444A23E6BC09006F41A3 /* Token.swift */,
@@ -182,21 +191,26 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		7AFA642723EC942500B11BFD /* ARLoad */ = {
-			isa = PBXGroup;
-			children = (
-				7AFA642823EC942500B11BFD /* Media.xcassets */,
-				7AFA642A23EC942500B11BFD /* ActionViewController.swift */,
-				7AB1DA1923ED50C600D27733 /* USDZModel.swift */,
-				7AFA642C23EC942500B11BFD /* MainInterface.storyboard */,
-				7AFA642F23EC942500B11BFD /* Info.plist */,
-			);
-			path = ARLoad;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		7A5FB0AB23EE932400C6B245 /* ARLoad */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7A5FB0B723EE932400C6B245 /* Build configuration list for PBXNativeTarget "ARLoad" */;
+			buildPhases = (
+				7A5FB0A823EE932400C6B245 /* Sources */,
+				7A5FB0A923EE932400C6B245 /* Frameworks */,
+				7A5FB0AA23EE932400C6B245 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ARLoad;
+			productName = ARLoad;
+			productReference = 7A5FB0AC23EE932400C6B245 /* ARLoad.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		7AF140A923E5DB0C00FCAE7B /* ARClient */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7AF140BE23E5DB0E00FCAE7B /* Build configuration list for PBXNativeTarget "ARClient" */;
@@ -209,29 +223,12 @@
 			buildRules = (
 			);
 			dependencies = (
-				7AFA643123EC942500B11BFD /* PBXTargetDependency */,
+				7A5FB0B523EE932400C6B245 /* PBXTargetDependency */,
 			);
 			name = ARClient;
 			productName = ARClient;
 			productReference = 7AF140AA23E5DB0C00FCAE7B /* ARClient.app */;
 			productType = "com.apple.product-type.application";
-		};
-		7AFA642523EC942500B11BFD /* ARLoad */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 7AFA643323EC942500B11BFD /* Build configuration list for PBXNativeTarget "ARLoad" */;
-			buildPhases = (
-				7AFA642223EC942500B11BFD /* Sources */,
-				7AFA642323EC942500B11BFD /* Frameworks */,
-				7AFA642423EC942500B11BFD /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = ARLoad;
-			productName = ARLoad;
-			productReference = 7AFA642623EC942500B11BFD /* ARLoad.appex */;
-			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -243,10 +240,10 @@
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "Denis Zubkov";
 				TargetAttributes = {
-					7AF140A923E5DB0C00FCAE7B = {
+					7A5FB0AB23EE932400C6B245 = {
 						CreatedOnToolsVersion = 11.3.1;
 					};
-					7AFA642523EC942500B11BFD = {
+					7AF140A923E5DB0C00FCAE7B = {
 						CreatedOnToolsVersion = 11.3.1;
 					};
 				};
@@ -265,12 +262,20 @@
 			projectRoot = "";
 			targets = (
 				7AF140A923E5DB0C00FCAE7B /* ARClient */,
-				7AFA642523EC942500B11BFD /* ARLoad */,
+				7A5FB0AB23EE932400C6B245 /* ARLoad */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		7A5FB0AA23EE932400C6B245 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A5FB0B223EE932400C6B245 /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7AF140A823E5DB0C00FCAE7B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -282,19 +287,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7AFA642423EC942500B11BFD /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7AB1DA2623ED795F00D27733 /* Main.storyboard in Resources */,
-				7AB1DA3023ED90C900D27733 /* MainInterface.storyboard in Resources */,
-				7AFA642923EC942500B11BFD /* Media.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		7A5FB0A823EE932400C6B245 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A5FB0AF23EE932400C6B245 /* ShareViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7AF140A623E5DB0C00FCAE7B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -304,6 +307,7 @@
 				7AD9856D23E6C63500FA06BD /* CatalogListTableViewCell.swift in Sources */,
 				7AD9856B23E6C60900FA06BD /* CatalogListViewController.swift in Sources */,
 				7AF140AE23E5DB0C00FCAE7B /* AppDelegate.swift in Sources */,
+				7AEB48D323EE983F007BBCAB /* ARClientModel.xcdatamodeld in Sources */,
 				7AD9856F23E6D15400FA06BD /* UsersListViewController.swift in Sources */,
 				7AF140F023E6AA7D00FCAE7B /* DataProvider.swift in Sources */,
 				7AF140C223E5DB5900FCAE7B /* CoreDataStack.swift in Sources */,
@@ -313,29 +317,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7AFA642223EC942500B11BFD /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7AB1DA3423ED94AD00D27733 /* Object.swift in Sources */,
-				7AB1DA3323ED94AA00D27733 /* User.swift in Sources */,
-				7AB1DA2E23ED7A7100D27733 /* GlobalSettings.swift in Sources */,
-				7AB1DA3123ED90CC00D27733 /* USDZModel.swift in Sources */,
-				7AB1DA3223ED90CF00D27733 /* ActionViewController.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		7AFA643123EC942500B11BFD /* PBXTargetDependency */ = {
+		7A5FB0B523EE932400C6B245 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 7AFA642523EC942500B11BFD /* ARLoad */;
-			targetProxy = 7AFA643023EC942500B11BFD /* PBXContainerItemProxy */;
+			target = 7A5FB0AB23EE932400C6B245 /* ARLoad */;
+			targetProxy = 7A5FB0B423EE932400C6B245 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		7A5FB0B023EE932400C6B245 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7A5FB0B123EE932400C6B245 /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
 		7AF140B323E5DB0C00FCAE7B /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -352,17 +352,49 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
-		7AFA642C23EC942500B11BFD /* MainInterface.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				7AFA642D23EC942500B11BFD /* Base */,
-			);
-			name = MainInterface.storyboard;
-			sourceTree = "<group>";
-		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		7A5FB0B823EE932400C6B245 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = ARLoad/ARLoad.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = KA9VGY5669;
+				INFOPLIST_FILE = ARLoad/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ru.denzu.ARClient.ARLoad;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		7A5FB0B923EE932400C6B245 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = ARLoad/ARLoad.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = KA9VGY5669;
+				INFOPLIST_FILE = ARLoad/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ru.denzu.ARClient.ARLoad;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		7AF140BC23E5DB0E00FCAE7B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -482,6 +514,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ARClient/ARClient.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KA9VGY5669;
 				INFOPLIST_FILE = ARClient/Info.plist;
@@ -502,6 +535,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ARClient/ARClient.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KA9VGY5669;
 				INFOPLIST_FILE = ARClient/Info.plist;
@@ -517,47 +551,18 @@
 			};
 			name = Release;
 		};
-		7AFA643423EC942500B11BFD /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = KA9VGY5669;
-				INFOPLIST_FILE = ARLoad/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = ru.denzu.ARClient.ARLoad;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		7AFA643523EC942500B11BFD /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = KA9VGY5669;
-				INFOPLIST_FILE = ARLoad/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = ru.denzu.ARClient.ARLoad;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		7A5FB0B723EE932400C6B245 /* Build configuration list for PBXNativeTarget "ARLoad" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A5FB0B823EE932400C6B245 /* Debug */,
+				7A5FB0B923EE932400C6B245 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		7AF140A523E5DB0C00FCAE7B /* Build configuration list for PBXProject "ARClient" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -576,16 +581,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7AFA643323EC942500B11BFD /* Build configuration list for PBXNativeTarget "ARLoad" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				7AFA643423EC942500B11BFD /* Debug */,
-				7AFA643523EC942500B11BFD /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		7AEB48D123EE983F007BBCAB /* ARClientModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				7AEB48D223EE983F007BBCAB /* ARClientModel.xcdatamodel */,
+			);
+			currentVersion = 7AEB48D223EE983F007BBCAB /* ARClientModel.xcdatamodel */;
+			path = ARClientModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 7AF140A223E5DB0C00FCAE7B /* Project object */;
 }

@@ -25,6 +25,19 @@ class LoadViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        mainUser()
+        let url = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.ru.denzu.ARClient.objects")!
+        do {
+            let fileUrls = try FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: nil)
+
+            for item in fileUrls {
+                if item.pathExtension == "usdz" {
+                    print("Found \(try item.resourceValues(forKeys: [URLResourceKey.creationDateKey]))")
+                }
+            }
+        } catch {
+            // failed to read directory – bad permissions, perhaps?
+        }
         appSetup()
     }
     
@@ -33,11 +46,17 @@ class LoadViewController: UIViewController {
             showMessage(title: "Network error", message: "Can't connect to server")
             return
         }
+        
         dataProvider.check(url: url) { (string) in
             if string == "Ok" {
                 self.currentUser = self.checkSavedUser()
-                if self.checkOnServer(user: self.currentUser) {
-                    print("CAN WORK")
+                if let user = self.currentUser {
+                    if self.checkOnServer(user: user) {
+                        print("CAN WORK USER \(user.username ?? "incoginto")")
+                        self.performSegue(withIdentifier: "mainSegue", sender: nil)
+                    }
+                } else {
+                    print("SING IN INCOGNITO!")
                     self.performSegue(withIdentifier: "mainSegue", sender: nil)
                 }
             } else {
@@ -68,6 +87,14 @@ class LoadViewController: UIViewController {
         UserDefaults.standard.set(user.id, forKey: "USERID")
         UserDefaults.standard.set(user.username, forKey: "USERNAME")
         UserDefaults.standard.set(user.password, forKey: "PASSWORD")
+        return
+    }
+    
+    func mainUser() {
+        // Сохранение пользователя в UserDefault
+        UserDefaults.standard.set(0, forKey: "USERID")
+        UserDefaults.standard.set("Admin", forKey: "USERNAME")
+        UserDefaults.standard.set("Admin", forKey: "PASSWORD")
         return
     }
     

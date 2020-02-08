@@ -25,7 +25,6 @@ QLPreviewControllerDelegate, QLPreviewControllerDataSource {
     
     func saveFile() {
         dataProvider.fileLocation = { location in
-            print(location.absoluteString)
             guard let name = self.currentObject?.name else { return }
             let DocumentDirURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
             let fileURL = DocumentDirURL.appendingPathComponent(name).appendingPathExtension("usdz")
@@ -127,9 +126,12 @@ QLPreviewControllerDelegate, QLPreviewControllerDataSource {
        return 1
    }
    
-   func previewController(_ controller: QLPreviewController, previewItemAt index: Int) -> QLPreviewItem {
-    let name  = self.currentObject?.name ?? "no_model"
-    let url = dataProvider.getUrlFile(fileName: name, fileExt: "usdz")!
+    func previewController(_ controller: QLPreviewController, previewItemAt index: Int) -> QLPreviewItem {
+    if let name = currentObject?.name,
+        let url = dataProvider.getUrlFile(fileName: name, fileExt: "usdz") {
+            return url as QLPreviewItem
+    }
+        let url = URL(string: "https://apple.com")!
     return url as QLPreviewItem
    }
 

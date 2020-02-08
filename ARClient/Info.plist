@@ -2,39 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>UISupportsDocumentBrowser</key>
-	<true/>
-	<key>CFBundleDocumentTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleTypeIconFile</key>
-			<string>ARKit.jpeg</string>
-			<key>LSItemContentTypes</key>
-			<array>
-				<string>ru.denzu.customUTIHandler.usdz</string>
-			</array>
-			<key>CFBundleTypeName</key>
-			<string>USDZ data type</string>
-			<key>LSHandlerRank</key>
-			<string>Owner</string>
-		</dict>
-	</array>
-	<key>UTExportedTypeDeclarations</key>
-	<array>
-		<dict>
-			<key>UTTypeConformsTo</key>
-			<array>
-				<string>public.text</string>
-			</array>
-			<key>UTTypeIdentifier</key>
-			<string>ru.denzu.customUTIHandler.usdz</string>
-			<key>UTTypeTagSpecification</key>
-			<dict>
-				<key>public.filename-extension</key>
-				<string>usdz</string>
-			</dict>
-		</dict>
-	</array>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
