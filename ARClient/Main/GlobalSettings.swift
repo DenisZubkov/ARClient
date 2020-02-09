@@ -15,7 +15,12 @@ class GlobalSettings {
     let host = "78.47.113.172" // "10.0.1.7" //10.5.112.7"
     let port = 8088
     let checkPath = "/check"
-    
+    let authPath = "/login/basic"
+    let buttonOkBgColor = #colorLiteral(red: 0, green: 0.5690457821, blue: 0.5746168494, alpha: 1)
+    let buttonCancelBgColor = #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)
+    let buttonOkTextColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+    let buttonCancelTextColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+    let buttonCornerRadius = 5
     
     func getUrlComponents(path: String) -> URLComponents {
         var urlComponents = URLComponents()

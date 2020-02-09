@@ -26,6 +26,12 @@ class LoadObjectsListViewController: UIViewController, UITableViewDelegate, UITa
         // Do any additional setup after loading the view.
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        rootViewController.store.fetchLoadObjects()
+        rootViewController.loadObjects = rootViewController.store.fetchedLoadObjects
+    }
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return rootViewController.loadObjects.count
        }

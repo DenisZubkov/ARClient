@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A3261BB23EFFBFD00FE91A5 /* UserDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3261BA23EFFBFD00FE91A5 /* UserDetailViewController.swift */; };
+		7A3261BE23F0032C00FE91A5 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3261BD23F0032C00FE91A5 /* SettingsViewController.swift */; };
 		7A5FB0AF23EE932400C6B245 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5FB0AE23EE932400C6B245 /* ShareViewController.swift */; };
 		7A5FB0B223EE932400C6B245 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A5FB0B023EE932400C6B245 /* MainInterface.storyboard */; };
 		7A5FB0B623EE932400C6B245 /* ARLoad.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 7A5FB0AC23EE932400C6B245 /* ARLoad.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -19,6 +21,7 @@
 		7AEB48E523EF115D007BBCAB /* ARClientModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7AEB48D123EE983F007BBCAB /* ARClientModel.xcdatamodeld */; };
 		7AEB48E723EF2419007BBCAB /* LoadObjectsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEB48E623EF2419007BBCAB /* LoadObjectsListViewController.swift */; };
 		7AEB48E923EF2436007BBCAB /* LoadObjectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEB48E823EF2436007BBCAB /* LoadObjectTableViewCell.swift */; };
+		7AEB48F023EFE81A007BBCAB /* UsersListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEB48EF23EFE81A007BBCAB /* UsersListTableViewCell.swift */; };
 		7AF140AE23E5DB0C00FCAE7B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF140AD23E5DB0C00FCAE7B /* AppDelegate.swift */; };
 		7AF140B523E5DB0C00FCAE7B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AF140B323E5DB0C00FCAE7B /* Main.storyboard */; };
 		7AF140B723E5DB0E00FCAE7B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AF140B623E5DB0E00FCAE7B /* Assets.xcassets */; };
@@ -57,6 +60,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7A3261BA23EFFBFD00FE91A5 /* UserDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailViewController.swift; sourceTree = "<group>"; };
+		7A3261BD23F0032C00FE91A5 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		7A5FB0AC23EE932400C6B245 /* ARLoad.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ARLoad.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A5FB0AE23EE932400C6B245 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		7A5FB0B123EE932400C6B245 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
@@ -70,6 +75,7 @@
 		7AEB48D223EE983F007BBCAB /* ARClientModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ARClientModel.xcdatamodel; sourceTree = "<group>"; };
 		7AEB48E623EF2419007BBCAB /* LoadObjectsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadObjectsListViewController.swift; sourceTree = "<group>"; };
 		7AEB48E823EF2436007BBCAB /* LoadObjectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadObjectTableViewCell.swift; sourceTree = "<group>"; };
+		7AEB48EF23EFE81A007BBCAB /* UsersListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersListTableViewCell.swift; sourceTree = "<group>"; };
 		7AF140AA23E5DB0C00FCAE7B /* ARClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AF140AD23E5DB0C00FCAE7B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7AF140B423E5DB0C00FCAE7B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -103,6 +109,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7A3261BC23F0031400FE91A5 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				7A3261BD23F0032C00FE91A5 /* SettingsViewController.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		7A5FB0AD23EE932400C6B245 /* ARLoad */ = {
 			isa = PBXGroup;
 			children = (
@@ -136,6 +150,8 @@
 			isa = PBXGroup;
 			children = (
 				7AD9856E23E6D15400FA06BD /* UsersListViewController.swift */,
+				7AEB48EF23EFE81A007BBCAB /* UsersListTableViewCell.swift */,
+				7A3261BA23EFFBFD00FE91A5 /* UserDetailViewController.swift */,
 			);
 			path = Users;
 			sourceTree = "<group>";
@@ -147,6 +163,16 @@
 				7AEB48E823EF2436007BBCAB /* LoadObjectTableViewCell.swift */,
 			);
 			path = LoadObjects;
+			sourceTree = "<group>";
+		};
+		7AEB48EE23EFE7EE007BBCAB /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				7AF140B623E5DB0E00FCAE7B /* Assets.xcassets */,
+				7AF140B823E5DB0E00FCAE7B /* LaunchScreen.storyboard */,
+				7AFA642023EC830000B11BFD /* ARKit.jpeg */,
+			);
+			path = Resource;
 			sourceTree = "<group>";
 		};
 		7AF140A123E5DB0C00FCAE7B = {
@@ -171,17 +197,15 @@
 			isa = PBXGroup;
 			children = (
 				7A5FB0BB23EE93BD00C6B245 /* ARClient.entitlements */,
+				7AF140BB23E5DB0E00FCAE7B /* Info.plist */,
 				7AF140E723E6A06000FCAE7B /* Main */,
+				7AF140EC23E6A0FC00FCAE7B /* Model */,
 				7ACC437B23E6B3C4006F41A3 /* Data */,
 				7AD9856923E6C5CF00FA06BD /* Catalog */,
-				7AF140EC23E6A0FC00FCAE7B /* Model */,
-				7AF140B323E5DB0C00FCAE7B /* Main.storyboard */,
 				7AEB48EA23EF2459007BBCAB /* LoadObjects */,
 				7AD9857023E6D15B00FA06BD /* Users */,
-				7AF140B623E5DB0E00FCAE7B /* Assets.xcassets */,
-				7AF140B823E5DB0E00FCAE7B /* LaunchScreen.storyboard */,
-				7AF140BB23E5DB0E00FCAE7B /* Info.plist */,
-				7AFA642023EC830000B11BFD /* ARKit.jpeg */,
+				7A3261BC23F0031400FE91A5 /* Settings */,
+				7AEB48EE23EFE7EE007BBCAB /* Resource */,
 			);
 			path = ARClient;
 			sourceTree = "<group>";
@@ -189,6 +213,7 @@
 		7AF140E723E6A06000FCAE7B /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				7AF140B323E5DB0C00FCAE7B /* Main.storyboard */,
 				7AF140AD23E5DB0C00FCAE7B /* AppDelegate.swift */,
 				7AF140C123E5DB5900FCAE7B /* CoreDataStack.swift */,
 				7AF140ED23E6A60900FCAE7B /* GlobalSettings.swift */,
@@ -320,6 +345,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AEB48F023EFE81A007BBCAB /* UsersListTableViewCell.swift in Sources */,
 				7ACC444B23E6BC09006F41A3 /* Token.swift in Sources */,
 				7AF140C423E5DBCE00FCAE7B /* LoadViewController.swift in Sources */,
 				7AEB48E923EF2436007BBCAB /* LoadObjectTableViewCell.swift in Sources */,
@@ -329,7 +355,9 @@
 				7AEB48E423EF115D007BBCAB /* ARClientModel.xcdatamodeld in Sources */,
 				7AD9856F23E6D15400FA06BD /* UsersListViewController.swift in Sources */,
 				7AF140F023E6AA7D00FCAE7B /* DataProvider.swift in Sources */,
+				7A3261BB23EFFBFD00FE91A5 /* UserDetailViewController.swift in Sources */,
 				7AEB48E723EF2419007BBCAB /* LoadObjectsListViewController.swift in Sources */,
+				7A3261BE23F0032C00FE91A5 /* SettingsViewController.swift in Sources */,
 				7AF140C223E5DB5900FCAE7B /* CoreDataStack.swift in Sources */,
 				7AF140EE23E6A60900FCAE7B /* GlobalSettings.swift in Sources */,
 				7AF140E923E6A0DF00FCAE7B /* User.swift in Sources */,
@@ -538,7 +566,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KA9VGY5669;
 				INFOPLIST_FILE = ARClient/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -559,7 +587,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KA9VGY5669;
 				INFOPLIST_FILE = ARClient/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
