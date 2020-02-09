@@ -14,7 +14,11 @@
 		7AD9856B23E6C60900FA06BD /* CatalogListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD9856A23E6C60900FA06BD /* CatalogListViewController.swift */; };
 		7AD9856D23E6C63500FA06BD /* CatalogListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD9856C23E6C63500FA06BD /* CatalogListTableViewCell.swift */; };
 		7AD9856F23E6D15400FA06BD /* UsersListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD9856E23E6D15400FA06BD /* UsersListViewController.swift */; };
-		7AEB48D323EE983F007BBCAB /* ARClientModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7AEB48D123EE983F007BBCAB /* ARClientModel.xcdatamodeld */; };
+		7AEB48D823EF0A5F007BBCAB /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF140C123E5DB5900FCAE7B /* CoreDataStack.swift */; };
+		7AEB48E423EF115D007BBCAB /* ARClientModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7AEB48D123EE983F007BBCAB /* ARClientModel.xcdatamodeld */; };
+		7AEB48E523EF115D007BBCAB /* ARClientModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7AEB48D123EE983F007BBCAB /* ARClientModel.xcdatamodeld */; };
+		7AEB48E723EF2419007BBCAB /* LoadObjectsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEB48E623EF2419007BBCAB /* LoadObjectsListViewController.swift */; };
+		7AEB48E923EF2436007BBCAB /* LoadObjectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEB48E823EF2436007BBCAB /* LoadObjectTableViewCell.swift */; };
 		7AF140AE23E5DB0C00FCAE7B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF140AD23E5DB0C00FCAE7B /* AppDelegate.swift */; };
 		7AF140B523E5DB0C00FCAE7B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AF140B323E5DB0C00FCAE7B /* Main.storyboard */; };
 		7AF140B723E5DB0E00FCAE7B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AF140B623E5DB0E00FCAE7B /* Assets.xcassets */; };
@@ -64,6 +68,8 @@
 		7AD9856C23E6C63500FA06BD /* CatalogListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogListTableViewCell.swift; sourceTree = "<group>"; };
 		7AD9856E23E6D15400FA06BD /* UsersListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersListViewController.swift; sourceTree = "<group>"; };
 		7AEB48D223EE983F007BBCAB /* ARClientModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ARClientModel.xcdatamodel; sourceTree = "<group>"; };
+		7AEB48E623EF2419007BBCAB /* LoadObjectsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadObjectsListViewController.swift; sourceTree = "<group>"; };
+		7AEB48E823EF2436007BBCAB /* LoadObjectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadObjectTableViewCell.swift; sourceTree = "<group>"; };
 		7AF140AA23E5DB0C00FCAE7B /* ARClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AF140AD23E5DB0C00FCAE7B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7AF140B423E5DB0C00FCAE7B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -134,6 +140,15 @@
 			path = Users;
 			sourceTree = "<group>";
 		};
+		7AEB48EA23EF2459007BBCAB /* LoadObjects */ = {
+			isa = PBXGroup;
+			children = (
+				7AEB48E623EF2419007BBCAB /* LoadObjectsListViewController.swift */,
+				7AEB48E823EF2436007BBCAB /* LoadObjectTableViewCell.swift */,
+			);
+			path = LoadObjects;
+			sourceTree = "<group>";
+		};
 		7AF140A123E5DB0C00FCAE7B = {
 			isa = PBXGroup;
 			children = (
@@ -161,6 +176,7 @@
 				7AD9856923E6C5CF00FA06BD /* Catalog */,
 				7AF140EC23E6A0FC00FCAE7B /* Model */,
 				7AF140B323E5DB0C00FCAE7B /* Main.storyboard */,
+				7AEB48EA23EF2459007BBCAB /* LoadObjects */,
 				7AD9857023E6D15B00FA06BD /* Users */,
 				7AF140B623E5DB0E00FCAE7B /* Assets.xcassets */,
 				7AF140B823E5DB0E00FCAE7B /* LaunchScreen.storyboard */,
@@ -295,6 +311,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A5FB0AF23EE932400C6B245 /* ShareViewController.swift in Sources */,
+				7AEB48D823EF0A5F007BBCAB /* CoreDataStack.swift in Sources */,
+				7AEB48E523EF115D007BBCAB /* ARClientModel.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,12 +322,14 @@
 			files = (
 				7ACC444B23E6BC09006F41A3 /* Token.swift in Sources */,
 				7AF140C423E5DBCE00FCAE7B /* LoadViewController.swift in Sources */,
+				7AEB48E923EF2436007BBCAB /* LoadObjectTableViewCell.swift in Sources */,
 				7AD9856D23E6C63500FA06BD /* CatalogListTableViewCell.swift in Sources */,
 				7AD9856B23E6C60900FA06BD /* CatalogListViewController.swift in Sources */,
 				7AF140AE23E5DB0C00FCAE7B /* AppDelegate.swift in Sources */,
-				7AEB48D323EE983F007BBCAB /* ARClientModel.xcdatamodeld in Sources */,
+				7AEB48E423EF115D007BBCAB /* ARClientModel.xcdatamodeld in Sources */,
 				7AD9856F23E6D15400FA06BD /* UsersListViewController.swift in Sources */,
 				7AF140F023E6AA7D00FCAE7B /* DataProvider.swift in Sources */,
+				7AEB48E723EF2419007BBCAB /* LoadObjectsListViewController.swift in Sources */,
 				7AF140C223E5DB5900FCAE7B /* CoreDataStack.swift in Sources */,
 				7AF140EE23E6A60900FCAE7B /* GlobalSettings.swift in Sources */,
 				7AF140E923E6A0DF00FCAE7B /* User.swift in Sources */,

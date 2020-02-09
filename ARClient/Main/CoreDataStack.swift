@@ -26,12 +26,27 @@ final class CoreDataStack {
 
     var fetchedLoadObjects = [LoadObject]()
 
-    func storeLoadObject(name: String, url: URL, date: Date) {
+    func storeLoadObject(name: String, url: URL, data: Data, date: Date, filename: String, comment : String) {
+//        guard let entity =  NSEntityDescription.entity(forEntityName: "LoadObject", in: context) else { return }
+//        let property = NSManagedObject(entity: entity, insertInto: context)
+//        property.setValue(name, forKey: "name")
+//        property.setValue(date, forKey: "loadDate")
+//        property.setValue(data, forKey: "data")
+//        property.setValue(comment, forKey: "comment")
+//        property.setValue(filename, forKey: "filename")
         let loadObject = LoadObject(context: context)
         loadObject.name = name
+        loadObject.urlSource = url
         loadObject.loadDate = date
-        try! context.save()
+        loadObject.data = data
+        loadObject.comment = comment
+        loadObject.filename = filename
+        saveContext()
         fetchLoadObjects()
+ //       for loadObject in fetchedLoadObjects{
+ //           print(loadObject.comment)
+ //         print(loadObject.urlSource?.absoluteString)
+ //       }
     }
 
     func fetchLoadObjects() {
@@ -49,7 +64,7 @@ final class CoreDataStack {
 
     lazy var persistentContainer: CustomPersistantContainer = {
 
-        let container = CustomPersistantContainer(name: "LoadObjects")
+        let container = CustomPersistantContainer(name: "ARClientModel")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
 
@@ -67,7 +82,6 @@ final class CoreDataStack {
             do {
                 try context.save()
             } catch {
-
                 let nserror = error as NSError
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }

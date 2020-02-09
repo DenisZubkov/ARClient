@@ -26,5 +26,11 @@ class GlobalSettings {
         return urlComponents
     }
     
+    func getStringFrom(dateTime: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM.yyyy hh:mm"
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 60 * 60 * 3)
+        return dateFormatter.string(from: dateTime)
+    }
     
 }

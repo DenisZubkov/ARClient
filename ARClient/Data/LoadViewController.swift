@@ -16,6 +16,8 @@ class LoadViewController: UIViewController {
     let dataProvider = DataProvider()
     var users: [User] = []
     var objects: [Object] = []
+    let store = CoreDataStack.store
+    var loadObjects: [LoadObject] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,18 +28,8 @@ class LoadViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         mainUser()
-        let url = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.ru.denzu.ARClient.objects")!
-        do {
-            let fileUrls = try FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: nil)
-
-            for item in fileUrls {
-                if item.pathExtension == "usdz" {
-                    print("Found \(try item.resourceValues(forKeys: [URLResourceKey.creationDateKey]))")
-                }
-            }
-        } catch {
-            // failed to read directory – bad permissions, perhaps?
-        }
+        store.fetchLoadObjects()
+        loadObjects = store.fetchedLoadObjects
         appSetup()
     }
     
