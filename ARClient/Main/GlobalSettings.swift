@@ -39,3 +39,19 @@ class GlobalSettings {
     }
     
 }
+
+enum httpMethod: String  {
+    case get = "GET"
+    case post = "POST"
+    case put = "PUT"
+    case delete = "DELETE"
+    
+    var statusCode: Int {
+        switch self {
+        case .get : return 200
+        case .post : return 201
+        case .put : return 200
+        case .delete : return 200
+        }
+    }
+}

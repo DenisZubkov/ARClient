@@ -24,7 +24,7 @@ class UsersListViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        rootViewController.loadUsersFromWbeb(tableView: usersTableView)
+        rootViewController.getUsersFromWbeb(tableView: usersTableView)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -43,6 +43,16 @@ class UsersListViewController: UIViewController, UITableViewDataSource, UITableV
     
      func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "EditUserSegue" {
+            if let indexPath = usersTableView.indexPathForSelectedRow {
+                let user = rootViewController.users[indexPath.row]
+                let dvc = segue.destination as! UserDetailViewController
+                dvc.user = user
+            }
+        }
     }
     /*
     // MARK: - Navigation

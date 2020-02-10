@@ -66,7 +66,7 @@ QLPreviewControllerDelegate, QLPreviewControllerDataSource {
         cell.thumbnailImageView.layer.borderColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
         cell.thumbnailImageView.layer.borderWidth = 2
         if let url = object.thumbnail {
-            dataProvider.downloadData(url: url) { data in
+            dataProvider.runRequest(method: .get, url: url, body: nil) { data in
                 if let data = data {
                     cell.thumbnailImageView.image = UIImage(data: data)
                 }

@@ -13,6 +13,8 @@ class UserDetailViewController: UIViewController, UITextFieldDelegate {
     let gs = GlobalSettings()
     let rootViewController = AppDelegate.shared.rootViewController
     let dataProvider = DataProvider()
+    var user: User?
+    var editUser: User?
     
     @IBOutlet weak var userTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -24,6 +26,14 @@ class UserDetailViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         userTextField.delegate = self
         passwordTextField.delegate = self
+        editUser = user
+        saveButton.isEnabled = checkUserChange()
+        if user == nil {
+            deleteButton.isEnabled = false
+        }
+        userTextField.text = user?.username
+        passwordTextField.text = user?.password
+        isAdminSwitch.isOn = user?.isadmin == 1 ? true : false
         // Do any additional setup after loading the view.
     }
     
@@ -55,7 +65,33 @@ class UserDetailViewController: UIViewController, UITextFieldDelegate {
             present(alert, animated: true, completion: nil)
             return false
         }
+        if let text = textField.text {
+            let haveUser = rootViewController.users.filter({$0.username == text && $0.id != user?.id ?? -9999})
+            if haveUser.count > 0 {
+                let alert = UIAlertController(title: "Пользователь с именем \(text) уже существует!",
+                    message: "Введите другое имя пользователя",
+                    preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
+                    textField.text = nil
+                }
+                alert.addAction(okAction)
+                present(alert, animated: true, completion: nil)
+                return false
+            }
+        }
         return true
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        saveButton.isEnabled = checkUserChange()
+    }
+    
+    func checkUserChange() -> Bool {
+        if user?.username == userTextField.text && user?.password == passwordTextField.text{
+            return false
+        } else {
+            return true
+        }
     }
     
     // проверяем поле на корректность при окончании редактирования поля
@@ -75,24 +111,36 @@ class UserDetailViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func userSaved(_ sender: UIButton) {
-        var user = User()
-        user.username = userTextField.text
-        user.password = passwordTextField.text
-        user.salt = ""
-        user.isadmin = isAdminSwitch.isOn ? 1 : 0
-        var maxId = 0
-        for user in rootViewController.users {
-            if let id = user.id,
-                id > maxId {
-                maxId = user.id!
+        if checkUserChange() {
+            if user == nil {
+                user = User()
+                user?.username = userTextField.text
+                user?.password = passwordTextField.text
+                user?.salt = ""
+                user?.isadmin = isAdminSwitch.isOn ? 1 : 0
+                var maxId = 0
+                for user in rootViewController.users {
+                    if let id = user.id,
+                        id > maxId {
+                        maxId = user.id!
+                    }
+                }
+                user?.id = maxId + 1
+                rootViewController.postUserToWbeb(user: user!)
+            } else {
+                user?.username = userTextField.text
+                user?.password = passwordTextField.text
+                user?.salt = ""
+                user?.isadmin = isAdminSwitch.isOn ? 1 : 0
+                rootViewController.putUserToWbeb(user: user!)
             }
         }
-        user.id = maxId + 1
-        rootViewController.uploadUserToWbeb(user: user)
-        
     }
     
     @IBAction func userDeleted(_ sender: UIButton) {
+        if let user = user {
+            rootViewController.deleteUserToWbeb(user: user)
+        }
     }
     /*
     // MARK: - Navigation

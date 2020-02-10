@@ -32,13 +32,25 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        let savedUser = checkSavedUser()
-        if savedUser.username != nil && savedUser.password != nil {
-            authorize(user: savedUser)
-        } else {
-            UIElements(hide: false)
-            textFieldSetup()
-            buttonSetup()
+        guard let url = gs.getUrlComponents(path: gs.checkPath).url else {
+            showMessage(title: "Network error", message: "Can't connect to server")
+            return
+        }
+        dataProvider.check(url: url) { (string) in
+            if string == "Ok" {
+                let savedUser = self.checkSavedUser()
+                if savedUser.username != nil && savedUser.password != nil {
+                    self.authorize(user: savedUser)
+                } else {
+                    self.UIElements(hide: false)
+                    self.textFieldSetup()
+                    self.buttonSetup()
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.showMessage(title: "Ошибка сети", message: string ?? "Нет соединения с сервером")
+                }
+            }
         }
     }
     
@@ -109,26 +121,6 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
         cancelButton.layer.cornerRadius = CGFloat(gs.buttonCornerRadius)
     }
     
-//    func appSetup() {
-//        guard let url = gs.getUrlComponents(path: gs.checkPath).url else {
-//            showMessage(title: "Network error", message: "Can't connect to server")
-//            return
-//        }
-//
-//        dataProvider.check(url: url) { (string) in
-//            if string == "Ok" {
-//                self.currentUser = self.checkSavedUser()
-//                if let user = self.currentUser {
-//                    self.authorize(user: user)
-//                }
-//            } else {
-//                DispatchQueue.main.async {
-//                    self.showMessage(title: "Ошибка сети", message: string ?? "Нет соединения с сервером")
-//                }
-//            }
-//        }
-//    }
-    
     func checkSavedUser() -> User {
         // Проверка наличия сохраненного пользователя
         
@@ -150,18 +142,7 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
         return
     }
     
-    func mainUser() {
-        // Сохранение пользователя в UserDefault
-        UserDefaults.standard.set("Admin", forKey: "USERNAME")
-        UserDefaults.standard.set("Admin", forKey: "PASSWORD")
-        return
-    }
     
-    
-    func checkOnServer(user: User) -> Bool {
-        // ToDo - проверка права на соединение данного пользователя
-        return true
-    }
     
     func showMessage(title: String, message: String) {
         let alertData = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -179,7 +160,7 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
         guard let url = urlComponent.url else { return }
         dataProvider.login = currentUser.username
         dataProvider.password = currentUser.password
-        dataProvider.downloadData(url: url) { data in
+        dataProvider.runRequest(method: .get, url: url, body: nil) { data in
             guard let data = data else { return }
             //UserDefaults.standard.set(data, forKey: url.absoluteString)
             let objectsJSON: [Object]? = self.getJSONArray(from: data)
@@ -191,12 +172,14 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func loadUsersFromWbeb(tableView: UITableView?) {
+    //MARK: - User CRUD
+    
+    func getUsersFromWbeb(tableView: UITableView?) {
         let urlComponent = gs.getUrlComponents(path: "/users/all")
         guard let url = urlComponent.url else { return }
         dataProvider.login = currentUser.username
         dataProvider.password = currentUser.password
-        dataProvider.downloadData(url: url) { data in
+        dataProvider.runRequest(method: .get, url: url, body: nil) { data in
             guard let data = data else { return }
             //UserDefaults.standard.set(data, forKey: url.absoluteString)
             let usersJSON: [User]? = self.getJSONArray(from: data)
@@ -208,18 +191,43 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func uploadUserToWbeb(user: User) {
+    
+    func postUserToWbeb(user: User) {
         let urlComponent = gs.getUrlComponents(path: "/user")
         guard let url = urlComponent.url else { return }
         dataProvider.login = currentUser.username
         dataProvider.password = currentUser.password
-        guard let data = putJSONData(from: user) else { return }
-        dataProvider.uploadData(url: url, body: data) { data in
+        guard let body = putJSONData(from: user) else { return }
+        dataProvider.runRequest(method: .post, url: url, body: body) { data in
             guard let data = data else { return }
-            print(data)
+            print("Response: \(String(data: data, encoding: .utf8) ?? "")")
         }
     }
     
+    func putUserToWbeb(user: User) {
+        guard let id = user.id else { return }
+        let urlComponent = gs.getUrlComponents(path: "/user/\(id)")
+        guard let url = urlComponent.url else { return }
+        dataProvider.login = currentUser.username
+        dataProvider.password = currentUser.password
+        guard let body = putJSONData(from: user) else { return }
+        dataProvider.runRequest(method: .put, url: url, body: body) { data in
+            guard let data = data else { return }
+            print("Response: \(String(data: data, encoding: .utf8) ?? "")")
+        }
+    }
+    
+    func deleteUserToWbeb(user: User) {
+        guard let id = user.id else { return }
+        let urlComponent = gs.getUrlComponents(path: "/user/\(id)")
+        guard let url = urlComponent.url else { return }
+        dataProvider.login = currentUser.username
+        dataProvider.password = currentUser.password
+        dataProvider.runRequest(method: .delete, url: url, body: nil) { data in
+            guard let data = data else { return }
+            print("Response: \(String(data: data, encoding: .utf8) ?? "")")
+        }
+    }
     
     func authorize(user: User) {
         dataProvider.login = user.username
@@ -228,7 +236,7 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
             showMessage(title: "Network error", message: "Can't connect to server")
             return
         }
-        dataProvider.downloadData(url: url) { data in
+        dataProvider.runRequest(method: .get, url: url, body: nil) { data in
             guard let data = data else {
                 DispatchQueue.main.async {
                     self.showMessage(title: "Вход в приложение", message: "Неверные логин или пароль")
