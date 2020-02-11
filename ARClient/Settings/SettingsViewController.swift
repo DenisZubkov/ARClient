@@ -9,6 +9,11 @@
 import UIKit
 
 class SettingsViewController: UIViewController {
+    
+    
+    let gs = GlobalSettings()
+    let rootViewController = AppDelegate.shared.rootViewController
+    let dataProvider = DataProvider()
 
     @IBOutlet weak var userLabel: UILabel!
     @IBOutlet weak var loginButton: UIButton!
@@ -16,12 +21,27 @@ class SettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        if rootViewController.currentUser == nil {
+            userLabel.text = "Вход не выполнен"
+            loginButton.setTitle("Войти", for: .normal)
+        } else {
+            userLabel.text = rootViewController.currentUser.username
+            loginButton.setTitle("Выйти", for: .normal)
+        }
+        
         // Do any additional setup after loading the view.
     }
     
     @IBAction func loginButtonPressed(_ sender: UIButton) {
-        
+        if rootViewController.currentUser == nil {
+            self.performSegue(withIdentifier: "LoginSegue", sender: nil)
+        } else {
+            rootViewController.currentUser = nil
+            loginButton.setTitle("Войти", for: .normal)
+            userLabel.text = "Вход не выполнен"
+            UserDefaults.standard.removeObject(forKey: "USERNAME")
+            UserDefaults.standard.removeObject(forKey: "PASSWORD")
+        }
     }
     
     /*

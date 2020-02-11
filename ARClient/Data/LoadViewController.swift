@@ -174,7 +174,7 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
     
     //MARK: - User CRUD
     
-    func getUsersFromWbeb(tableView: UITableView?) {
+    func getUsersFromWeb(tableView: UITableView?) {
         let urlComponent = gs.getUrlComponents(path: "/users/all")
         guard let url = urlComponent.url else { return }
         dataProvider.login = currentUser.username
@@ -187,12 +187,13 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
             self.users = users
             if tableView != nil {
                 tableView?.reloadData()
+            } else {
+                self.currentUser = users.filter({$0.username == self.checkSavedUser().username}).first
             }
         }
     }
     
-    
-    func postUserToWbeb(user: User) {
+    func postUserToWeb(user: User) {
         let urlComponent = gs.getUrlComponents(path: "/user")
         guard let url = urlComponent.url else { return }
         dataProvider.login = currentUser.username
@@ -204,7 +205,7 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func putUserToWbeb(user: User) {
+    func putUserToWeb(user: User) {
         guard let id = user.id else { return }
         let urlComponent = gs.getUrlComponents(path: "/user/\(id)")
         guard let url = urlComponent.url else { return }
@@ -217,7 +218,7 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func deleteUserToWbeb(user: User) {
+    func deleteUserToWeb(user: User) {
         guard let id = user.id else { return }
         let urlComponent = gs.getUrlComponents(path: "/user/\(id)")
         guard let url = urlComponent.url else { return }
@@ -231,7 +232,7 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
     
     func authorize(user: User) {
         dataProvider.login = user.username
-        dataProvider.password = user.username
+        dataProvider.password = user.password
         guard let url = gs.getUrlComponents(path: gs.authPath).url else {
             showMessage(title: "Network error", message: "Can't connect to server")
             return
@@ -262,6 +263,7 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
             //self.appSetup()
             self.saveUser(user: user)
             self.currentUser = user
+            self.getUsersFromWeb(tableView: nil)
             self.performSegue(withIdentifier: "mainSegue", sender: nil)
         }
     }

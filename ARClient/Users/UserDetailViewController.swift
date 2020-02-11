@@ -87,7 +87,7 @@ class UserDetailViewController: UIViewController, UITextFieldDelegate {
     }
     
     func checkUserChange() -> Bool {
-        if user?.username == userTextField.text && user?.password == passwordTextField.text{
+        if user?.username == userTextField.text && user?.password == passwordTextField.text && (user?.isadmin == 1 ? true : false) == isAdminSwitch.isOn {
             return false
         } else {
             return true
@@ -111,35 +111,113 @@ class UserDetailViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func userSaved(_ sender: UIButton) {
-        if checkUserChange() {
+        if self.checkUserChange() {
+            var message = ""
             if user == nil {
-                user = User()
-                user?.username = userTextField.text
-                user?.password = passwordTextField.text
-                user?.salt = ""
-                user?.isadmin = isAdminSwitch.isOn ? 1 : 0
-                var maxId = 0
-                for user in rootViewController.users {
-                    if let id = user.id,
-                        id > maxId {
-                        maxId = user.id!
-                    }
-                }
-                user?.id = maxId + 1
-                rootViewController.postUserToWbeb(user: user!)
+                message = "Вы действительно хотите сохранить нового пользователя \(userTextField.text ?? "")"
             } else {
-                user?.username = userTextField.text
-                user?.password = passwordTextField.text
-                user?.salt = ""
-                user?.isadmin = isAdminSwitch.isOn ? 1 : 0
-                rootViewController.putUserToWbeb(user: user!)
+                message = "Вы действительно хотите сохранить изменения для пользователя \(user?.username ?? "")"
             }
+            let alert = UIAlertController(title: "Сохранение",
+                                          message:message,
+                                          preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
+                
+                if self.user == nil {
+                    self.user = User()
+                    self.user?.username = self.userTextField.text
+                    self.user?.password = self.passwordTextField.text
+                    self.user?.salt = ""
+                    self.user?.isadmin = self.isAdminSwitch.isOn ? 1 : 0
+                    var maxId = 0
+                    for user in self.rootViewController.users {
+                        if let id = user.id,
+                            id > maxId {
+                            maxId = user.id!
+                        }
+                    }
+                    self.user?.id = maxId + 1
+                    self.rootViewController.postUserToWeb(user: self.user!)
+                } else {
+                    self.user?.username = self.userTextField.text
+                    self.user?.password = self.passwordTextField.text
+                    self.user?.salt = ""
+                    self.user?.isadmin = self.isAdminSwitch.isOn ? 1 : 0
+                    self.rootViewController.putUserToWeb(user: self.user!)
+                }
+                
+                self.performSegue(withIdentifier: "ReturnFromEditUnwind", sender: self)
+            }
+            alert.addAction(okAction)
+            let cancelAction = UIAlertAction(title: "Отменить", style: .default) { (action) in
+            }
+            alert.addAction(cancelAction)
+            present(alert, animated: true, completion: nil)
+        } else {
+            let alert = UIAlertController(title: "Нет изменений",
+                                          message: "Нет изменений для сохранения",
+                                          preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
+                self.performSegue(withIdentifier: "ReturnFromEditUnwind", sender: self)
+            }
+            alert.addAction(okAction)
+            present(alert, animated: true, completion: nil)
         }
     }
     
     @IBAction func userDeleted(_ sender: UIButton) {
-        if let user = user {
-            rootViewController.deleteUserToWbeb(user: user)
+        if let user = user, let id = user.id {
+            let haveObjects = rootViewController.objects.filter({$0.userId == id}).count
+            
+            guard user.id! != rootViewController.currentUser.id! else {
+                let alert = UIAlertController(title: "Активный пользователь",
+                                              message: "Нельзя удалить текущего пользователя",
+                                              preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
+                }
+                alert.addAction(okAction)
+                present(alert, animated: true, completion: nil)
+                return
+            }
+            
+            guard id  != 0 else {
+                let alert = UIAlertController(title: "Главный пользователь!",
+                                              message: "Пользователя \(user.username!) НЕЛЬЗЯ удалять!!!",
+                                              preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
+                }
+                alert.addAction(okAction)
+                present(alert, animated: true, completion: nil)
+                return
+            }
+            
+            
+            guard haveObjects == 0 else {
+                let alert = UIAlertController(title: "Есть модели!",
+                                              message: "Для удаления пользователя \(user.username!), удалите все его модели.",
+                                              preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
+                }
+                alert.addAction(okAction)
+                present(alert, animated: true, completion: nil)
+                return 
+            }
+            
+            
+            
+            let alert = UIAlertController(title: "Удаление пользователя",
+                                          message: "Вы действительно хотите удалить пользователя \(user.username!)?",
+                                          preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
+                self.rootViewController.deleteUserToWeb(user: user)
+                self.performSegue(withIdentifier: "ReturnFromEditUnwind", sender: self)
+            }
+            alert.addAction(okAction)
+            let cancelAction = UIAlertAction(title: "Прервать", style: .default) { (action) in
+            }
+            alert.addAction(cancelAction)
+            present(alert, animated: true, completion: nil)
+           
         }
     }
     /*

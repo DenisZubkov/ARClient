@@ -47,7 +47,9 @@ QLPreviewControllerDelegate, QLPreviewControllerDataSource {
     }
        
     override func viewDidAppear(_ animated: Bool) {
+        rootViewController.getUsersFromWeb(tableView: catalogTableView)
         rootViewController.loadObjectsFromWbeb(tableView: catalogTableView)
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

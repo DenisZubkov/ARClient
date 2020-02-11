@@ -24,7 +24,8 @@ class UsersListViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        rootViewController.getUsersFromWbeb(tableView: usersTableView)
+        rootViewController.getUsersFromWeb(tableView: usersTableView)
+        rootViewController.loadObjectsFromWbeb(tableView: usersTableView)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -53,6 +54,9 @@ class UsersListViewController: UIViewController, UITableViewDataSource, UITableV
                 dvc.user = user
             }
         }
+    }
+    
+    @IBAction func returnFromEdit(unwindSegue: UIStoryboardSegue) {
     }
     /*
     // MARK: - Navigation
