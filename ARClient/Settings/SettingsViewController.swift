@@ -25,7 +25,7 @@ class SettingsViewController: UIViewController {
             userLabel.text = "Вход не выполнен"
             loginButton.setTitle("Войти", for: .normal)
         } else {
-            userLabel.text = rootViewController.currentUser.username
+            userLabel.text = rootViewController.currentUser?.username
             loginButton.setTitle("Выйти", for: .normal)
         }
         
@@ -34,12 +34,12 @@ class SettingsViewController: UIViewController {
     
     @IBAction func loginButtonPressed(_ sender: UIButton) {
         if rootViewController.currentUser == nil {
-            self.performSegue(withIdentifier: "LoginSegue", sender: nil)
+            self.performSegue(withIdentifier: "ReturnFromSettingsUnwind", sender: nil)
         } else {
             rootViewController.currentUser = nil
             loginButton.setTitle("Войти", for: .normal)
             userLabel.text = "Вход не выполнен"
-            UserDefaults.standard.removeObject(forKey: "USERNAME")
+//            UserDefaults.standard.removeObject(forKey: "USERNAME")
             UserDefaults.standard.removeObject(forKey: "PASSWORD")
         }
     }

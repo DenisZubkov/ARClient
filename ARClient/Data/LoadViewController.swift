@@ -10,7 +10,12 @@ import UIKit
 
 class LoadViewController: UIViewController, UITextFieldDelegate {
     
-    var currentUser: User!
+    var currentUser: User! {
+        didSet {
+            print("OLD:\(oldValue?.username ?? "пусто") NEW:\(currentUser?.username ?? "пусто")")
+        }
+    }
+    
     let gs = GlobalSettings()
     let dataProvider = DataProvider()
     var users: [User] = []
@@ -53,6 +58,8 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
             }
         }
     }
+    
+    
     
     //MARK: - TextFields work
     
@@ -109,7 +116,14 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
     // проверяем поле на корректность при нажатии кнопки Done на клавиатуре
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        return checkTextField(textField: textField)
+        if checkTextField(textField: textField) {
+            if textField.tag == 0 {
+                passwordTextField.becomeFirstResponder()
+            } else if textField.tag == 1 {
+                loginButtonPressed(loginButton)
+            }
+        }
+        return false
     }
     
     func buttonSetup() {
@@ -177,8 +191,8 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
     func getUsersFromWeb(tableView: UITableView?) {
         let urlComponent = gs.getUrlComponents(path: "/users/all")
         guard let url = urlComponent.url else { return }
-        dataProvider.login = currentUser.username
-        dataProvider.password = currentUser.password
+        dataProvider.login = self.currentUser.username
+        dataProvider.password = self.currentUser.password
         dataProvider.runRequest(method: .get, url: url, body: nil) { data in
             guard let data = data else { return }
             //UserDefaults.standard.set(data, forKey: url.absoluteString)
@@ -264,6 +278,7 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
             self.saveUser(user: user)
             self.currentUser = user
             self.getUsersFromWeb(tableView: nil)
+            
             self.performSegue(withIdentifier: "mainSegue", sender: nil)
         }
     }
@@ -322,5 +337,6 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
     @IBAction func cancelButtonPressed(_ sender: UIButton) {
     }
     
-    
+    @IBAction func returnFromSettings(unwindSegue: UIStoryboardSegue) {
+    }
 }

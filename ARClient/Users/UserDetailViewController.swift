@@ -28,13 +28,23 @@ class UserDetailViewController: UIViewController, UITextFieldDelegate {
         passwordTextField.delegate = self
         editUser = user
         saveButton.isEnabled = checkUserChange()
+        buttonSetup()
         if user == nil {
             deleteButton.isEnabled = false
         }
         userTextField.text = user?.username
         passwordTextField.text = user?.password
-        isAdminSwitch.isOn = user?.isadmin == 1 ? true : false
+        isAdminSwitch.isOn = user?.isadmin ?? 0 == 1 ? true : false
         // Do any additional setup after loading the view.
+    }
+    
+    func buttonSetup() {
+        saveButton.tintColor = gs.buttonOkTextColor
+        saveButton.backgroundColor = gs.buttonOkBgColor
+        saveButton.layer.cornerRadius = CGFloat(gs.buttonCornerRadius)
+        deleteButton.tintColor = gs.buttonCancelTextColor
+        deleteButton.backgroundColor = gs.buttonCancelBgColor
+        deleteButton.layer.cornerRadius = CGFloat(gs.buttonCornerRadius)
     }
     
     func addTapGestureToHideKeyboard() {
@@ -103,7 +113,14 @@ class UserDetailViewController: UIViewController, UITextFieldDelegate {
     // проверяем поле на корректность при нажатии кнопки Done на клавиатуре
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        return checkTextField(textField: textField)
+        if checkTextField(textField: textField) {
+            if textField.tag == 0 {
+                passwordTextField.becomeFirstResponder()
+            } else if textField.tag == 1 {
+                saveButton.becomeFirstResponder()
+            }
+        }
+        return false
     }
 
     @IBAction func isAdminSwitched(_ sender: UISwitch) {

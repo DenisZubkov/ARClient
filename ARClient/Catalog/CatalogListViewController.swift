@@ -41,6 +41,27 @@ QLPreviewControllerDelegate, QLPreviewControllerDataSource {
         }
     }
     
+     func tabbarSetup(user: User?) {
+        guard let user = user else {
+            if let item = self.tabBarController?.tabBar.items?[1] {
+                item.isEnabled = false
+            }
+            return
+         }
+        guard let isAdmin = user.isadmin, isAdmin == 1 else {
+            if let item = self.tabBarController?.tabBar.items?[2] {
+                item.isEnabled = false
+            }
+            return
+        }
+        if let item = self.tabBarController?.tabBar.items?[1] {
+            item.isEnabled = true
+        }
+        if let item = self.tabBarController?.tabBar.items?[2] {
+            item.isEnabled = true
+        }
+     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         saveFile()

@@ -37,7 +37,6 @@ class UsersListViewController: UIViewController, UITableViewDataSource, UITableV
         let user = rootViewController.users[indexPath.row]
         cell.userLabel.text = user.username
         cell.passwordLabel.text = user.password
-        cell.saltLabel.text = user.salt
         cell.isAdminSwitch.isOn = user.isadmin == 1 ? true : false
         return cell
     }

@@ -11,7 +11,6 @@ import UIKit
 class UsersListTableViewCell: UITableViewCell {
     @IBOutlet weak var userLabel: UILabel!
     @IBOutlet weak var passwordLabel: UILabel!
-    @IBOutlet weak var saltLabel: UILabel!
     @IBOutlet weak var isAdminSwitch: UISwitch!
     
     override func awakeFromNib() {
