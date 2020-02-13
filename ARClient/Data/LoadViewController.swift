@@ -23,6 +23,7 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
     let store = CoreDataStack.store
     var loadObjects: [LoadObject] = []
     var isAuth = false
+    var initialTBCViewControllers: [UIViewController]? 
     
     @IBOutlet weak var userTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -169,7 +170,26 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
         present(alertData, animated: true, completion: nil)
     }
     
-    func loadObjectsFromWbeb(tableView: UITableView?) {
+    func getFileFromWeb(object: Object) {
+        
+    }
+    
+    func getPublicObjectsFromWbeb(tableView: UITableView?) {
+        let urlComponent = gs.getUrlComponents(path: "/objects/public")
+        guard let url = urlComponent.url else { return }
+        dataProvider.downloadPublicData(url: url) { data in
+            guard let data = data else { return }
+            //UserDefaults.standard.set(data, forKey: url.absoluteString)
+            let objectsJSON: [Object]? = self.getJSONArray(from: data)
+            guard let objects = objectsJSON else { return }
+            self.objects = objects
+            if tableView != nil {
+                tableView?.reloadData()
+            }
+        }
+    }
+    
+    func getObjectsFromWbeb(tableView: UITableView?) {
         let urlComponent = gs.getUrlComponents(path: "/objects/all")
         guard let url = urlComponent.url else { return }
         dataProvider.login = currentUser.username
@@ -185,6 +205,8 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
             }
         }
     }
+    
+    
     
     //MARK: - User CRUD
     
@@ -278,9 +300,20 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
             self.saveUser(user: user)
             self.currentUser = user
             self.getUsersFromWeb(tableView: nil)
-            
+            self.currentUser = self.users.filter({$0.username == user.username!}).first
             self.performSegue(withIdentifier: "mainSegue", sender: nil)
         }
+    }
+    
+    func tabbarSetup(user: User?, tbc: UITabBarController?) {
+       tbc?.viewControllers = self.initialTBCViewControllers
+       if user == nil {
+        tbc?.viewControllers?.remove(at: 1)
+        tbc?.viewControllers?.remove(at: 1)
+        }
+       if let user = user, user.isadmin ?? 0 != 1  {
+        tbc?.viewControllers?.remove(at: 2)
+       }
     }
     
     //MARK: JSON = decodable
@@ -335,6 +368,8 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func cancelButtonPressed(_ sender: UIButton) {
+        currentUser = nil
+        self.performSegue(withIdentifier: "mainSegue", sender: nil)
     }
     
     @IBAction func returnFromSettings(unwindSegue: UIStoryboardSegue) {

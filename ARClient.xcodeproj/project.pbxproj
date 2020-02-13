@@ -16,6 +16,7 @@
 		7AD9856B23E6C60900FA06BD /* CatalogListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD9856A23E6C60900FA06BD /* CatalogListViewController.swift */; };
 		7AD9856D23E6C63500FA06BD /* CatalogListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD9856C23E6C63500FA06BD /* CatalogListTableViewCell.swift */; };
 		7AD9856F23E6D15400FA06BD /* UsersListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD9856E23E6D15400FA06BD /* UsersListViewController.swift */; };
+		7ADADD0423F56E6900A23406 /* ObjectFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADADD0323F56E6900A23406 /* ObjectFile.swift */; };
 		7AEB48D823EF0A5F007BBCAB /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF140C123E5DB5900FCAE7B /* CoreDataStack.swift */; };
 		7AEB48E423EF115D007BBCAB /* ARClientModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7AEB48D123EE983F007BBCAB /* ARClientModel.xcdatamodeld */; };
 		7AEB48E523EF115D007BBCAB /* ARClientModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7AEB48D123EE983F007BBCAB /* ARClientModel.xcdatamodeld */; };
@@ -72,6 +73,7 @@
 		7AD9856A23E6C60900FA06BD /* CatalogListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogListViewController.swift; sourceTree = "<group>"; };
 		7AD9856C23E6C63500FA06BD /* CatalogListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogListTableViewCell.swift; sourceTree = "<group>"; };
 		7AD9856E23E6D15400FA06BD /* UsersListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersListViewController.swift; sourceTree = "<group>"; };
+		7ADADD0323F56E6900A23406 /* ObjectFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectFile.swift; sourceTree = "<group>"; };
 		7AEB48D223EE983F007BBCAB /* ARClientModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ARClientModel.xcdatamodel; sourceTree = "<group>"; };
 		7AEB48E623EF2419007BBCAB /* LoadObjectsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadObjectsListViewController.swift; sourceTree = "<group>"; };
 		7AEB48E823EF2436007BBCAB /* LoadObjectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadObjectTableViewCell.swift; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 				7AEB48D123EE983F007BBCAB /* ARClientModel.xcdatamodeld */,
 				7AF140E823E6A0DF00FCAE7B /* User.swift */,
 				7AF140EA23E6A0ED00FCAE7B /* Object.swift */,
+				7ADADD0323F56E6900A23406 /* ObjectFile.swift */,
 				7ACC444A23E6BC09006F41A3 /* Token.swift */,
 			);
 			path = Model;
@@ -355,6 +358,7 @@
 				7AEB48E423EF115D007BBCAB /* ARClientModel.xcdatamodeld in Sources */,
 				7AD9856F23E6D15400FA06BD /* UsersListViewController.swift in Sources */,
 				7AF140F023E6AA7D00FCAE7B /* DataProvider.swift in Sources */,
+				7ADADD0423F56E6900A23406 /* ObjectFile.swift in Sources */,
 				7A3261BB23EFFBFD00FE91A5 /* UserDetailViewController.swift in Sources */,
 				7AEB48E723EF2419007BBCAB /* LoadObjectsListViewController.swift in Sources */,
 				7A3261BE23F0032C00FE91A5 /* SettingsViewController.swift in Sources */,

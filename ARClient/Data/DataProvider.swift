@@ -28,7 +28,8 @@ class DataProvider: NSObject {
     
     func startDownload(url: URL?) {
         if let url = url {
-            downloadTask = bgSession.downloadTask(with: url)
+            let request = getRequest(method: .get, url: url, body: nil)
+            downloadTask = bgSession.downloadTask(with: request)
             downloadTask.earliestBeginDate = Date().addingTimeInterval(1)
             downloadTask.countOfBytesClientExpectsToSend = 512
             downloadTask.countOfBytesClientExpectsToReceive = 100 * 1024 * 1024 // 100MB
@@ -129,7 +130,7 @@ class DataProvider: NSObject {
     }
 
     
-    func downloadPhoto(url: URL, completion: @escaping (UIImage?) -> Void) {
+    func downloadPublicData(url: URL, completion: @escaping (Data?) -> Void) {
         let request = URLRequest(url: url)
         let dataTask = URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
             
@@ -143,15 +144,14 @@ class DataProvider: NSObject {
                     }
                     return
             }
-            guard let data = data else { return }
-             guard let image = UIImage(data: data) else {
+            guard let data = data else {
                 DispatchQueue.main.async {
                     completion(nil)
                 }
                 return
             }
             DispatchQueue.main.async {
-                completion(image)
+                completion(data)
             }
         }
         dataTask.resume()

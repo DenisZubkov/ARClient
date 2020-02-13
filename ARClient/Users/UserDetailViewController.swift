@@ -163,7 +163,11 @@ class UserDetailViewController: UIViewController, UITextFieldDelegate {
                     self.rootViewController.putUserToWeb(user: self.user!)
                 }
                 
-                self.performSegue(withIdentifier: "ReturnFromEditUnwind", sender: self)
+                if self.user?.id == self.rootViewController.currentUser.id {
+                    self.performSegue(withIdentifier: "ReturnFromEditToLoginUnwind", sender: self)
+                } else {
+                    self.performSegue(withIdentifier: "ReturnFromEditUnwind", sender: self)
+                }
             }
             alert.addAction(okAction)
             let cancelAction = UIAlertAction(title: "Отменить", style: .default) { (action) in

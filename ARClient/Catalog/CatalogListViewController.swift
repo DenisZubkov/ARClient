@@ -41,35 +41,25 @@ QLPreviewControllerDelegate, QLPreviewControllerDataSource {
         }
     }
     
-     func tabbarSetup(user: User?) {
-        guard let user = user else {
-            if let item = self.tabBarController?.tabBar.items?[1] {
-                item.isEnabled = false
-            }
-            return
-         }
-        guard let isAdmin = user.isadmin, isAdmin == 1 else {
-            if let item = self.tabBarController?.tabBar.items?[2] {
-                item.isEnabled = false
-            }
-            return
-        }
-        if let item = self.tabBarController?.tabBar.items?[1] {
-            item.isEnabled = true
-        }
-        if let item = self.tabBarController?.tabBar.items?[2] {
-            item.isEnabled = true
-        }
-     }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         saveFile()
+        
     }
        
     override func viewDidAppear(_ animated: Bool) {
-        rootViewController.getUsersFromWeb(tableView: catalogTableView)
-        rootViewController.loadObjectsFromWbeb(tableView: catalogTableView)
+        if rootViewController.initialTBCViewControllers == nil {
+            rootViewController.initialTBCViewControllers = tabBarController?.viewControllers
+        }
+        rootViewController.tabbarSetup(user: rootViewController.currentUser, tbc: self.tabBarController)
+        if rootViewController.currentUser == nil {
+            rootViewController.getPublicObjectsFromWbeb(tableView: catalogTableView)
+        } else {
+            rootViewController.getUsersFromWeb(tableView: catalogTableView)
+            rootViewController.getObjectsFromWbeb(tableView: catalogTableView)
+        }
         
     }
     
@@ -120,15 +110,38 @@ QLPreviewControllerDelegate, QLPreviewControllerDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         currentObject = rootViewController.objects[indexPath.row]
-        if let name = currentObject?.name,
-            let url = dataProvider.getUrlFile(fileName: name, fileExt: "usdz"),
+        guard let userId = currentObject?.userId,
+            let objectId = currentObject?.id  else {
+                guard let url = currentObject?.url else { return }
+                dataProvider.startDownload(url: url)
+                showDownloadng()
+                return
+        }
+        let name = "\(String(format: "%04d", userId))\(String(format: "%04d", objectId))"
+        if let url = dataProvider.getUrlFile(fileName: name, fileExt: "usdz"),
             fileManager.fileExists(atPath: url.path){
             viewObject()
-            
         } else {
-            guard let url = currentObject?.url else { return }
-            dataProvider.startDownload(url: url)
-            showDownloadng()
+            guard let filePath = currentObject?.serverUrl else { return }
+            let urlComponent = gs.getUrlComponents(path: "/file\(filePath)")
+            guard let url = urlComponent.url else { return }
+            dataProvider.login = rootViewController.currentUser.username
+            dataProvider.password = rootViewController.currentUser.password
+            dataProvider.runRequest(method: .get, url: url, body: nil) { data in
+                guard let data = data else { return }
+                //UserDefaults.standard.set(data, forKey: url.absoluteString)
+                let objectFileJSON: ObjectFile? = self.rootViewController.getJSONObject(from: data)
+                guard let objectFile = objectFileJSON else { return }
+                guard let dataFile = objectFile.data else { return }
+                let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+                let destinationURL = documentsPath.appendingPathComponent(name).appendingPathExtension("usdz")
+                try? FileManager.default.removeItem(at: destinationURL)
+                do {
+                    try dataFile.write(to: destinationURL)
+                } catch let error {
+                    print("Write Data Error: \(error.localizedDescription)")
+                }
+            }
         }
         
         
@@ -150,13 +163,14 @@ QLPreviewControllerDelegate, QLPreviewControllerDataSource {
    }
    
     func previewController(_ controller: QLPreviewController, previewItemAt index: Int) -> QLPreviewItem {
-    if let name = currentObject?.name,
-        let url = dataProvider.getUrlFile(fileName: name, fileExt: "usdz") {
+        let name = "\(String(format: "%04d", currentObject?.userId ?? 0))\(String(format: "%04d", currentObject?.id ?? 0))"
+        if let url = dataProvider.getUrlFile(fileName: name, fileExt: "usdz") {
             return url as QLPreviewItem
+        } else {
+            let url = URL(string: "https://apple.com")!
+            return url as QLPreviewItem
+        }
     }
-        let url = URL(string: "https://apple.com")!
-    return url as QLPreviewItem
-   }
 
     /*
     // MARK: - Navigation

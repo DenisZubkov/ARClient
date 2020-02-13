@@ -768,6 +768,7 @@
                         <outlet property="saveButton" destination="2AL-xK-ofm" id="ODq-rO-aal"/>
                         <outlet property="userTextField" destination="2pa-6X-7eh" id="aNK-r4-v4G"/>
                         <segue destination="HnE-WX-n7e" kind="unwind" identifier="ReturnFromEditUnwind" unwindAction="returnFromEditWithUnwindSegue:" id="Uoa-TK-eXg"/>
+                        <segue destination="HnE-WX-n7e" kind="unwind" identifier="ReturnFromEditToLoginUnwind" unwindAction="returnFromSettingsWithUnwindSegue:" id="ID0-3A-FpY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M0a-tj-kcx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
