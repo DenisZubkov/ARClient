@@ -18,4 +18,13 @@ struct Object: Codable {
     var thumbnail: URL?
     var serverThumbnail: URL?
     var ispublic: Int?
+    
+    
+    var internalFilename: String? {
+        if let id = id {
+            return "\(String(format: "%06d", userId))\(String(format: "%06d", id))"
+        } else {
+            return nil
+        }
+    }
 }

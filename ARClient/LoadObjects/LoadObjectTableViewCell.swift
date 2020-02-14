@@ -8,14 +8,24 @@
 
 import UIKit
 
+
+
+
 class LoadObjectTableViewCell: UITableViewCell {
 
+    let globalSettings = GlobalSettings()
+    let rootViewController = AppDelegate.shared.rootViewController
+    var loadObject: LoadObject?
+    var indexPath: IndexPath?
+    var tableView: UITableView?
+    
+    
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var filenameLabel: UILabel!
     @IBOutlet weak var loadDateLabel: UILabel!
     @IBOutlet weak var filesizeLabel: UILabel!
     @IBOutlet weak var commentLabel: UILabel!
-    
+   
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -27,5 +37,6 @@ class LoadObjectTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+
 
 }

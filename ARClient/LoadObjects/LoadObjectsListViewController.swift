@@ -46,7 +46,7 @@ class LoadObjectsListViewController: UIViewController, UITableViewDelegate, UITa
         
         if let filesize = loadObject.data?.count {
             let bcf = ByteCountFormatter()
-            bcf.allowedUnits = [.useMB] // optional: restricts the units to MB only
+            bcf.allowedUnits = [.useMB]
             bcf.countStyle = .file
             let filesizeString = bcf.string(fromByteCount: Int64(filesize))
             cell.filesizeLabel.text = filesizeString
@@ -70,6 +70,60 @@ class LoadObjectsListViewController: UIViewController, UITableViewDelegate, UITa
         
         
     }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteItem = UIContextualAction(style: .destructive, title: "Удалить") {  (contextualAction, view, boolValue) in
+            let loadObject = self.rootViewController.loadObjects[indexPath.row]
+            let alert = UIAlertController(title: "Удаление модели",
+                                          message:"Удалить модель \(loadObject.name ?? "")?",
+                                          preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
+                self.rootViewController.loadObjects.remove(at: indexPath.row)
+                self.loadObjectsTableView.deleteRows(at: [indexPath], with: .fade)
+                self.rootViewController.store.delete(loadObject: loadObject)
+            }
+            alert.addAction(okAction)
+            let cancelAction = UIAlertAction(title: "Отменить", style: .default) { (action) in
+            }
+            alert.addAction(cancelAction)
+            self.present(alert, animated: true, completion: nil)
+        }
+        
+        let saveItem = UIContextualAction(style: .normal, title: "Сохранить") {  (contextualAction, view, boolValue) in
+            
+            let loadObject = self.rootViewController.loadObjects[indexPath.row]
+            let alert = UIAlertController(title: "Сохраниение модели",
+                                          message:"Сохранить модель \(loadObject.name ?? "") на сервер?",
+                                          preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
+                self.rootViewController.saveObject(from: loadObject)
+                self.rootViewController.loadObjects.remove(at: indexPath.row)
+                self.loadObjectsTableView.deleteRows(at: [indexPath], with: .fade)
+            }
+            alert.addAction(okAction)
+            let cancelAction = UIAlertAction(title: "Отменить", style: .default) { (action) in
+            }
+            alert.addAction(cancelAction)
+            self.present(alert, animated: true, completion: nil)
+            
+        }
+        saveItem.backgroundColor = gs.buttonOkBgColor
+        
+        
+        
+        let swipeActions = UISwipeActionsConfiguration(actions: [deleteItem, saveItem])
+
+        return swipeActions
+    }
+    
     
     // MARK: - QuikPreview
      

@@ -162,7 +162,6 @@ class DataProvider: NSObject {
     
     func saveDataToFile(fileName: String, fileExt: String, data: Data) -> Bool{
         let DocumentDirURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-        
         let fileURL = DocumentDirURL.appendingPathComponent(fileName).appendingPathExtension(fileExt)
         do {
             try data.write(to: fileURL)

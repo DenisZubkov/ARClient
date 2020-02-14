@@ -23,7 +23,8 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
     let store = CoreDataStack.store
     var loadObjects: [LoadObject] = []
     var isAuth = false
-    var initialTBCViewControllers: [UIViewController]? 
+    var initialTBCViewControllers: [UIViewController]?
+    let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
     
     @IBOutlet weak var userTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -206,7 +207,54 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    func postObjectToWeb(object: Object, loadObject: LoadObject) {
+        let urlComponent = gs.getUrlComponents(path: "/object")
+        guard let url = urlComponent.url else { return }
+        dataProvider.login = currentUser.username
+        dataProvider.password = currentUser.password
+        guard let body = putJSONData(from: object) else { return }
+        dataProvider.runRequest(method: .post, url: url, body: body) { data in
+            guard let data = data else { return }
+            let objectJSON: Object? = self.getJSONObject(from: data)
+            guard let object = objectJSON else { return }
+            guard let name = object.internalFilename, let dataFile = loadObject.data else { return }
+            if self.dataProvider.saveDataToFile(fileName: name, fileExt: ".usdz", data: dataFile) {
+                self.saveFileServer(object: object, loadObject: loadObject)
+            }
+        }
+    }
     
+    func saveObject(from loadObject: LoadObject) {
+        guard let userId = currentUser.id, let urlSource = loadObject.urlSource else { return }
+        var maxId = 0
+        for object in self.objects {
+            if let id = object.id,
+                id > maxId {
+                maxId = object.id!
+            }
+        }
+        let id = maxId + 1
+        let object = Object(id: id, userId: userId, name: loadObject.name, url: urlSource, serverUrl: nil, date: Date(), thumbnail: nil, serverThumbnail: nil, ispublic: 0)
+        postObjectToWeb(object: object, loadObject: loadObject)
+    }
+
+    
+    func saveFileServer(object: Object, loadObject: LoadObject) {
+        guard let filename = object.internalFilename, let fileData = loadObject.data else { return }
+        let objectFile = ObjectFile(filename: filename, data: fileData)
+        guard let body = putJSONData(from: objectFile) else { return }
+        let urlComponent = gs.getUrlComponents(path: "/file")
+        guard let url = urlComponent.url else { return }
+        dataProvider.login = currentUser.username
+        dataProvider.password = currentUser.password
+        dataProvider.runRequest(method: .post, url: url, body: body) { data in
+            guard let _ = data else { return }
+            self.store.delete(loadObject: loadObject)
+            self.getObjectsFromWbeb(tableView: nil)
+        }
+        
+    }
+        
     
     //MARK: - User CRUD
     

@@ -77,14 +77,8 @@ class ShareViewController: SLComposeServiceViewController {
             let data = try Data(contentsOf: url)
             let filename = url.lastPathComponent
             let comment = self.textView.text ?? "No comment"
-            let name = filename.replacingOccurrences(of: ".usdz", with: "").uppercased()
+            let name = filename.replacingOccurrences(of: ".usdz", with: "")
             store.storeLoadObject(name: name, url: url, data: data, date: Date(), filename: filename, comment: comment)
-            print("Name: \(name)")
-            print("File: \(filename)")
-            print("URL: \(url.absoluteString)")
-            print("Comment: \(comment)")
-            print("Data: \(data)")
-
         } catch {
             print("No Data")
         }

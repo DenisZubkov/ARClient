@@ -60,6 +60,7 @@ QLPreviewControllerDelegate, QLPreviewControllerDataSource {
             rootViewController.getUsersFromWeb(tableView: catalogTableView)
             rootViewController.getObjectsFromWbeb(tableView: catalogTableView)
         }
+        catalogTableView.reloadData()
         
     }
     
@@ -110,16 +111,14 @@ QLPreviewControllerDelegate, QLPreviewControllerDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         currentObject = rootViewController.objects[indexPath.row]
-        guard let userId = currentObject?.userId,
-            let objectId = currentObject?.id  else {
+        guard let name = currentObject?.internalFilename else {
                 guard let url = currentObject?.url else { return }
                 dataProvider.startDownload(url: url)
                 showDownloadng()
                 return
         }
-        let name = "\(String(format: "%04d", userId))\(String(format: "%04d", objectId))"
         if let url = dataProvider.getUrlFile(fileName: name, fileExt: "usdz"),
-            fileManager.fileExists(atPath: url.path){
+            fileManager.fileExists(atPath: url.path) {
             viewObject()
         } else {
             guard let filePath = currentObject?.serverUrl else { return }
@@ -163,8 +162,9 @@ QLPreviewControllerDelegate, QLPreviewControllerDataSource {
    }
    
     func previewController(_ controller: QLPreviewController, previewItemAt index: Int) -> QLPreviewItem {
-        let name = "\(String(format: "%04d", currentObject?.userId ?? 0))\(String(format: "%04d", currentObject?.id ?? 0))"
-        if let url = dataProvider.getUrlFile(fileName: name, fileExt: "usdz") {
+        
+        if let name = currentObject?.internalFilename,
+            let url = dataProvider.getUrlFile(fileName: name, fileExt: "usdz") {
             return url as QLPreviewItem
         } else {
             let url = URL(string: "https://apple.com")!

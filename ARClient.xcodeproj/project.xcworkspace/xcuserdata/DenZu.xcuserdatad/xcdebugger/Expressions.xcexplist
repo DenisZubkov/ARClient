@@ -11,21 +11,34 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "LoadViewController.getUsersFromWeb(tableView:):LoadViewController.swift">
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in LoadViewController.authorize(user:):LoadViewController.swift">
+         contextName = "CatalogListViewController.tableView(_:didSelectRowAt:):CatalogListViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "user.id">
-            </PersistentString>
-            <PersistentString
-               value = "user.username">
+               value = "url.absoluteString">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "CatalogListViewController.tableView(_:didSelectRowAt:):CatalogListViewController.swift">
+         contextName = "LoadViewController.saveObject(from:):LoadViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "urlSource.absoluteString">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "LoadViewController.saveFileLocal(object:loadObject:):LoadViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "loadObject.urlSource">
+            </PersistentString>
+            <PersistentString
+               value = "sourceURL.absoluteString">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CatalogListViewController.tableView(_:cellForRowAt:):CatalogListViewController.swift">
          <PersistentStrings>
             <PersistentString
                value = "url.absoluteString">
@@ -41,12 +54,42 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #1 in LoadViewController.postObjectToWeb(object:loadObject:):LoadViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "loadObject.filename">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in CatalogListViewController.tableView(_:didSelectRowAt:):CatalogListViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "destinationURL.absoluteString">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in closure #1 in LoadViewController.getUsersFromWeb(tableView:):LoadViewController.swift">
          <PersistentStrings>
             <PersistentString
                value = "self.currentUser.id">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in LoadViewController.authorize(user:):LoadViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "user.id">
+            </PersistentString>
+            <PersistentString
+               value = "user.username">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "LoadViewController.getUsersFromWeb(tableView:):LoadViewController.swift">
       </ContextState>
       <ContextState
          contextName = "closure #1 in LoadViewController.getUsersFromWeb(tableView:):LoadViewController.swift">
@@ -60,10 +103,10 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in CatalogListViewController.tableView(_:didSelectRowAt:):CatalogListViewController.swift">
+         contextName = "LoadViewController.saveFileServer(object:loadObject:):LoadViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "destinationURL.absoluteString">
+               value = "fileURL.absoluteString">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
