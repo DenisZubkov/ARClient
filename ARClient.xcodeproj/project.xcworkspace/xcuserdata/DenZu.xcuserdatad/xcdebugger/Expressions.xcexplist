@@ -3,15 +3,21 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "CatalogListViewController.viewDidAppear(_:):CatalogListViewController.swift">
+         contextName = "closure #1 in CatalogListViewController.viewDidLoad():CatalogListViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "rootViewController.currentUser">
+               value = "DocumentDirURL.absoluteString">
+            </PersistentString>
+            <PersistentString
+               value = "fileURL.absoluteString">
+            </PersistentString>
+            <PersistentString
+               value = "FileManager.default.fileExists(atPath: fileURL.path)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "CatalogListViewController.tableView(_:didSelectRowAt:):CatalogListViewController.swift">
+         contextName = "CoreDataStack.storeLoadObject(name:url:data:date:filename:comment:):CoreDataStack.swift">
          <PersistentStrings>
             <PersistentString
                value = "url.absoluteString">
@@ -19,21 +25,21 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "LoadViewController.saveObject(from:):LoadViewController.swift">
+         contextName = "UserDetailViewController.userDeleted(_:):UserDetailViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "urlSource.absoluteString">
+               value = "user.id">
+            </PersistentString>
+            <PersistentString
+               value = "rootViewController.currentUser.id">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "LoadViewController.saveFileLocal(object:loadObject:):LoadViewController.swift">
+         contextName = "LoadViewController.authorize(user:):LoadViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "loadObject.urlSource">
-            </PersistentString>
-            <PersistentString
-               value = "sourceURL.absoluteString">
+               value = "url.absoluteString">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -41,72 +47,127 @@
          contextName = "CatalogListViewController.tableView(_:cellForRowAt:):CatalogListViewController.swift">
          <PersistentStrings>
             <PersistentString
+               value = "rootViewController.users">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "LoadViewController.checkSavedUser():LoadViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "UserDefaults.standard.value(forKey: &quot;PASSWORD&quot;) as? String">
+            </PersistentString>
+            <PersistentString
+               value = "UserDefaults.standard.value(forKey: &quot;SALT&quot;) as? String">
+            </PersistentString>
+            <PersistentString
+               value = "UserDefaults.standard.value(forKey: &quot;USERNAME&quot;) as? String">
+            </PersistentString>
+            <PersistentString
+               value = "UserDefaults.standard.value(forKey: &quot;USERID&quot;) as? Int">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ActionViewController.viewDidLoad():ActionViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "DataProvider.runRequest(method:url:body:completion:):DataProvider.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "request.url?.absoluteString">
+            </PersistentString>
+            <PersistentString
+               value = "request.login">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in DataProvider.downloadData(url:completion:):DataProvider.swift">
+         <PersistentStrings>
+            <PersistentString
                value = "url.absoluteString">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "CatalogListViewController.viewDidLoad():CatalogListViewController.swift">
+         contextName = "LoadViewController.loadObjectsFromWbeb(tableView:):LoadViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "LoadViewController.generateThumbnailRepresentations():LoadViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "rootViewController.currentUser.username">
+               value = "fileURL.absoluteString">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in LoadViewController.postObjectToWeb(object:loadObject:):LoadViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "loadObject.filename">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "LoadViewController.viewDidAppear(_:):LoadViewController.swift">
       </ContextState>
       <ContextState
-         contextName = "closure #1 in CatalogListViewController.tableView(_:didSelectRowAt:):CatalogListViewController.swift">
+         contextName = "UserDetailViewController.checkUserChange():UserDetailViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "destinationURL.absoluteString">
+               value = "user?.password == passwordTextField.text">
             </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in closure #1 in LoadViewController.getUsersFromWeb(tableView:):LoadViewController.swift">
-         <PersistentStrings>
             <PersistentString
-               value = "self.currentUser.id">
+               value = "user?.isadmin == 1 ? true : false">
+            </PersistentString>
+            <PersistentString
+               value = "isAdminSwitch.isOn ">
+            </PersistentString>
+            <PersistentString
+               value = "user?.username == userTextField.text">
+            </PersistentString>
+            <PersistentString
+               value = "(user?.isadmin == 1 ? true : false) == isAdminSwitch.isOn ">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "closure #1 in LoadViewController.authorize(user:):LoadViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "DataProvider.urlSession(_:downloadTask:didFinishDownloadingTo:):DataProvider.swift">
          <PersistentStrings>
             <PersistentString
-               value = "user.id">
+               value = "FileManager.default.currentDirectoryPath">
             </PersistentString>
             <PersistentString
-               value = "user.username">
+               value = "userPath.absoluteString">
+            </PersistentString>
+            <PersistentString
+               value = "documentsPath.absoluteString">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "LoadViewController.getUsersFromWeb(tableView:):LoadViewController.swift">
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in LoadViewController.getUsersFromWeb(tableView:):LoadViewController.swift">
+         contextName = "closure #1 in ActionViewController.viewDidLoad():ActionViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.currentUser.id">
-            </PersistentString>
-            <PersistentString
-               value = "self.checkSavedUser().username">
+               value = "kUTTypeImage as String">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "LoadViewController.saveFileServer(object:loadObject:):LoadViewController.swift">
+         contextName = "UsersListViewController.viewDidLoad():UsersListViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "fileURL.absoluteString">
+               value = "rootViewController.currentUser.id">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "DataProvider.uploadData(url:body:completion:):DataProvider.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "request.url?.absoluteString">
+            </PersistentString>
+            <PersistentString
+               value = "request.allHTTPHeaderFields">
+            </PersistentString>
+            <PersistentString
+               value = "request.httpBody">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

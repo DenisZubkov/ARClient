@@ -45,7 +45,7 @@ QLPreviewControllerDelegate, QLPreviewControllerDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        saveFile()
+        // saveFile()
         
     }
        
@@ -53,13 +53,14 @@ QLPreviewControllerDelegate, QLPreviewControllerDataSource {
         if rootViewController.initialTBCViewControllers == nil {
             rootViewController.initialTBCViewControllers = tabBarController?.viewControllers
         }
-        rootViewController.tabbarSetup(user: rootViewController.currentUser, tbc: self.tabBarController)
+       
         if rootViewController.currentUser == nil {
             rootViewController.getPublicObjectsFromWbeb(tableView: catalogTableView)
         } else {
             rootViewController.getUsersFromWeb(tableView: catalogTableView)
             rootViewController.getObjectsFromWbeb(tableView: catalogTableView)
         }
+        rootViewController.tabbarSetup(user: rootViewController.currentUser, tbc: self.tabBarController)
         catalogTableView.reloadData()
         
     }
@@ -79,25 +80,51 @@ QLPreviewControllerDelegate, QLPreviewControllerDataSource {
         cell.thumbnailImageView.layer.cornerRadius = 44
         cell.thumbnailImageView.layer.borderColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
         cell.thumbnailImageView.layer.borderWidth = 2
-        if let url = object.thumbnail {
-            dataProvider.runRequest(method: .get, url: url, body: nil) { data in
-                if let data = data {
-                    cell.thumbnailImageView.image = UIImage(data: data)
-                }
-            }
-        }
+        
         cell.isServerLoadView.layer.cornerRadius = 8
         cell.isServerLoadView.layer.borderColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
         cell.isServerLoadView.layer.borderWidth = 1
         cell.isAppLoadView.layer.cornerRadius = 8
         cell.isAppLoadView.layer.borderColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
         cell.isAppLoadView.layer.borderWidth = 1
-        if let name = object.name,
+        if let name = object.internalFilename,
             let url = dataProvider.getUrlFile(fileName: name, fileExt: "usdz"),
-            fileManager.fileExists(atPath: url.path){
+            fileManager.fileExists(atPath: url.path) {
+            
             cell.isAppLoadView.backgroundColor = UIColor.green
+            dataProvider.generateThumbnailRepresentations(url: url) { image in
+                if let image = image {
+                    cell.thumbnailImageView.image = image
+                } else {
+                    cell.thumbnailImageView.image = UIImage(named: "no-photo")
+                }
+            }
+            
         } else {
-            cell.isAppLoadView.backgroundColor = UIColor.red
+            rootViewController.getFileFromWeb(object: object) { data in
+                guard let _ = data else {
+                    DispatchQueue.main.async {
+                        cell.thumbnailImageView.image = UIImage(named: "no-photo")
+                    }
+                    return
+                }
+                if let name = object.internalFilename,
+                    let url = self.dataProvider.getUrlFile(fileName: name, fileExt: "usdz"),
+                    self.fileManager.fileExists(atPath: url.path) {
+                    
+                    cell.isAppLoadView.backgroundColor = UIColor.green
+                    self.dataProvider.generateThumbnailRepresentations(url: url) { image in
+                        DispatchQueue.main.async {
+                            if let image = image {
+                                cell.thumbnailImageView.image = image
+                            } else {
+                                cell.thumbnailImageView.image = UIImage(named: "no-photo")
+                            }
+                        }
+                    }
+                    
+                }
+            }
         }
         if let _ = object.name {
             cell.isServerLoadView.backgroundColor = UIColor.red

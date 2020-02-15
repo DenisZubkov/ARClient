@@ -12,6 +12,9 @@
 		7A5FB0AF23EE932400C6B245 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5FB0AE23EE932400C6B245 /* ShareViewController.swift */; };
 		7A5FB0B223EE932400C6B245 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A5FB0B023EE932400C6B245 /* MainInterface.storyboard */; };
 		7A5FB0B623EE932400C6B245 /* ARLoad.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 7A5FB0AC23EE932400C6B245 /* ARLoad.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		7A8108FD23F7F875009D0051 /* LoadObjectCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8108FC23F7F875009D0051 /* LoadObjectCollectionView.swift */; };
+		7AA60CD723F7D4AC00D1D8CB /* LoadObjectCaruselViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA60CD623F7D4AC00D1D8CB /* LoadObjectCaruselViewController.swift */; };
+		7AA60CDB23F7D52800D1D8CB /* LoadObjectCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA60CDA23F7D52800D1D8CB /* LoadObjectCollectionViewCell.swift */; };
 		7ACC444B23E6BC09006F41A3 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ACC444A23E6BC09006F41A3 /* Token.swift */; };
 		7AD9856B23E6C60900FA06BD /* CatalogListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD9856A23E6C60900FA06BD /* CatalogListViewController.swift */; };
 		7AD9856D23E6C63500FA06BD /* CatalogListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD9856C23E6C63500FA06BD /* CatalogListTableViewCell.swift */; };
@@ -20,8 +23,6 @@
 		7AEB48D823EF0A5F007BBCAB /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF140C123E5DB5900FCAE7B /* CoreDataStack.swift */; };
 		7AEB48E423EF115D007BBCAB /* ARClientModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7AEB48D123EE983F007BBCAB /* ARClientModel.xcdatamodeld */; };
 		7AEB48E523EF115D007BBCAB /* ARClientModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7AEB48D123EE983F007BBCAB /* ARClientModel.xcdatamodeld */; };
-		7AEB48E723EF2419007BBCAB /* LoadObjectsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEB48E623EF2419007BBCAB /* LoadObjectsListViewController.swift */; };
-		7AEB48E923EF2436007BBCAB /* LoadObjectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEB48E823EF2436007BBCAB /* LoadObjectTableViewCell.swift */; };
 		7AEB48F023EFE81A007BBCAB /* UsersListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEB48EF23EFE81A007BBCAB /* UsersListTableViewCell.swift */; };
 		7AF140AE23E5DB0C00FCAE7B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF140AD23E5DB0C00FCAE7B /* AppDelegate.swift */; };
 		7AF140B523E5DB0C00FCAE7B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AF140B323E5DB0C00FCAE7B /* Main.storyboard */; };
@@ -69,14 +70,15 @@
 		7A5FB0B323EE932400C6B245 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7A5FB0BA23EE936A00C6B245 /* ARLoad.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ARLoad.entitlements; sourceTree = "<group>"; };
 		7A5FB0BB23EE93BD00C6B245 /* ARClient.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ARClient.entitlements; sourceTree = "<group>"; };
+		7A8108FC23F7F875009D0051 /* LoadObjectCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadObjectCollectionView.swift; sourceTree = "<group>"; };
+		7AA60CD623F7D4AC00D1D8CB /* LoadObjectCaruselViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadObjectCaruselViewController.swift; sourceTree = "<group>"; };
+		7AA60CDA23F7D52800D1D8CB /* LoadObjectCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadObjectCollectionViewCell.swift; sourceTree = "<group>"; };
 		7ACC444A23E6BC09006F41A3 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		7AD9856A23E6C60900FA06BD /* CatalogListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogListViewController.swift; sourceTree = "<group>"; };
 		7AD9856C23E6C63500FA06BD /* CatalogListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogListTableViewCell.swift; sourceTree = "<group>"; };
 		7AD9856E23E6D15400FA06BD /* UsersListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersListViewController.swift; sourceTree = "<group>"; };
 		7ADADD0323F56E6900A23406 /* ObjectFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectFile.swift; sourceTree = "<group>"; };
 		7AEB48D223EE983F007BBCAB /* ARClientModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ARClientModel.xcdatamodel; sourceTree = "<group>"; };
-		7AEB48E623EF2419007BBCAB /* LoadObjectsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadObjectsListViewController.swift; sourceTree = "<group>"; };
-		7AEB48E823EF2436007BBCAB /* LoadObjectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadObjectTableViewCell.swift; sourceTree = "<group>"; };
 		7AEB48EF23EFE81A007BBCAB /* UsersListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersListTableViewCell.swift; sourceTree = "<group>"; };
 		7AF140AA23E5DB0C00FCAE7B /* ARClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AF140AD23E5DB0C00FCAE7B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -161,8 +163,9 @@
 		7AEB48EA23EF2459007BBCAB /* LoadObjects */ = {
 			isa = PBXGroup;
 			children = (
-				7AEB48E623EF2419007BBCAB /* LoadObjectsListViewController.swift */,
-				7AEB48E823EF2436007BBCAB /* LoadObjectTableViewCell.swift */,
+				7AA60CD623F7D4AC00D1D8CB /* LoadObjectCaruselViewController.swift */,
+				7AA60CDA23F7D52800D1D8CB /* LoadObjectCollectionViewCell.swift */,
+				7A8108FC23F7F875009D0051 /* LoadObjectCollectionView.swift */,
 			);
 			path = LoadObjects;
 			sourceTree = "<group>";
@@ -351,8 +354,8 @@
 				7AEB48F023EFE81A007BBCAB /* UsersListTableViewCell.swift in Sources */,
 				7ACC444B23E6BC09006F41A3 /* Token.swift in Sources */,
 				7AF140C423E5DBCE00FCAE7B /* LoadViewController.swift in Sources */,
-				7AEB48E923EF2436007BBCAB /* LoadObjectTableViewCell.swift in Sources */,
 				7AD9856D23E6C63500FA06BD /* CatalogListTableViewCell.swift in Sources */,
+				7AA60CD723F7D4AC00D1D8CB /* LoadObjectCaruselViewController.swift in Sources */,
 				7AD9856B23E6C60900FA06BD /* CatalogListViewController.swift in Sources */,
 				7AF140AE23E5DB0C00FCAE7B /* AppDelegate.swift in Sources */,
 				7AEB48E423EF115D007BBCAB /* ARClientModel.xcdatamodeld in Sources */,
@@ -360,12 +363,13 @@
 				7AF140F023E6AA7D00FCAE7B /* DataProvider.swift in Sources */,
 				7ADADD0423F56E6900A23406 /* ObjectFile.swift in Sources */,
 				7A3261BB23EFFBFD00FE91A5 /* UserDetailViewController.swift in Sources */,
-				7AEB48E723EF2419007BBCAB /* LoadObjectsListViewController.swift in Sources */,
 				7A3261BE23F0032C00FE91A5 /* SettingsViewController.swift in Sources */,
 				7AF140C223E5DB5900FCAE7B /* CoreDataStack.swift in Sources */,
 				7AF140EE23E6A60900FCAE7B /* GlobalSettings.swift in Sources */,
 				7AF140E923E6A0DF00FCAE7B /* User.swift in Sources */,
+				7AA60CDB23F7D52800D1D8CB /* LoadObjectCollectionViewCell.swift in Sources */,
 				7AF140EB23E6A0ED00FCAE7B /* Object.swift in Sources */,
+				7A8108FD23F7F875009D0051 /* LoadObjectCollectionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -578,7 +582,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ru.denzu.ARClient;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -599,7 +603,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ru.denzu.ARClient;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

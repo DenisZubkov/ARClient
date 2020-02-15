@@ -12,7 +12,7 @@ import UIKit
 class GlobalSettings {
     
     let scheme = "http"
-    let host = "127.0.0.1" //"78.47.113.172" // "10.0.1.7" //10.5.112.7"
+    let host = "denzu.ru" //"78.47.113.172" // "10.0.1.7" //10.5.112.7"
     let port = 8088
     let checkPath = "/check"
     let authPath = "/login/basic"
@@ -21,6 +21,11 @@ class GlobalSettings {
     let buttonOkTextColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
     let buttonCancelTextColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
     let buttonCornerRadius = 5
+    static let leftDistanceToView: CGFloat = 40
+    static let rightDistanceToView: CGFloat = 40
+    static let loadObjectMinimumLineSpacing: CGFloat = 10
+    static let loadObjectItemWidth = (UIScreen.main.bounds.width - leftDistanceToView - rightDistanceToView - (loadObjectMinimumLineSpacing / 1.0)) / 1.0
+    
     
     func getUrlComponents(path: String) -> URLComponents {
         var urlComponents = URLComponents()

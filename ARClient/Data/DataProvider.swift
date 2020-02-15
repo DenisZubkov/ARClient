@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import CoreData
+import QuickLookThumbnailing
 
 class DataProvider: NSObject {
 
@@ -158,7 +159,35 @@ class DataProvider: NSObject {
         
     }
     
-    
+    func generateThumbnailRepresentations(url: URL, completion: @escaping (UIImage?) -> Void) {
+        
+        // Set up the parameters of the request.
+        guard FileManager.default.fileExists(atPath: url.path) else { return }
+        
+        let size: CGSize = CGSize(width: 90, height: 120)
+        let scale = UIScreen.main.scale
+        
+        // Create the thumbnail request.
+        let request = QLThumbnailGenerator.Request(fileAt: url,
+                                                   size: size,
+                                                   scale: scale,
+                                                   representationTypes: .all)
+        
+        // Retrieve the singleton instance of the thumbnail generator and generate the thumbnails.
+        let generator = QLThumbnailGenerator.shared
+        generator.generateRepresentations(for: request) { (thumbnail, type, error) in
+            DispatchQueue.main.async {
+                guard let thumbnail = thumbnail else {
+                    DispatchQueue.main.async {
+                        completion(nil)
+                    }
+                    return
+                }
+                completion(UIImage(cgImage: thumbnail.cgImage))
+                
+            }
+        }
+    }
     
     func saveDataToFile(fileName: String, fileExt: String, data: Data) -> Bool{
         let DocumentDirURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)

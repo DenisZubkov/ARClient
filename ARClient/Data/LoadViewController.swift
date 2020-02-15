@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import QuickLookThumbnailing
 
 class LoadViewController: UIViewController, UITextFieldDelegate {
     
@@ -30,13 +31,17 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var logoImageView: UIImageView!
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         UIElements(hide: true)
+        
     }
+    
+    
     
     override func viewDidAppear(_ animated: Bool) {
         guard let url = gs.getUrlComponents(path: gs.checkPath).url else {
@@ -171,8 +176,35 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
         present(alertData, animated: true, completion: nil)
     }
     
-    func getFileFromWeb(object: Object) {
-        
+    func getFileFromWeb(object: Object, completion: @escaping (Data?) -> Void) {
+        guard let filename = object.internalFilename else {
+            completion(nil)
+            return
+        }
+        let urlComponent = gs.getUrlComponents(path: "/file/\(filename)")
+        guard let url = urlComponent.url else {
+            completion(nil)
+            return
+        }
+        dataProvider.login = currentUser.username
+        dataProvider.password = currentUser.password
+        dataProvider.runRequest(method: .get, url: url, body: nil) { data in
+            guard let data = data else {
+                completion(nil)
+                return
+            }
+            //UserDefaults.standard.set(data, forKey: url.absoluteString)
+            let objectFileJSON: ObjectFile? = self.getJSONObject(from: data)
+            guard let objectFile = objectFileJSON, let fileData = objectFile.data, let filename = object.internalFilename else {
+                completion(nil)
+                return
+            }
+            if self.dataProvider.saveDataToFile(fileName:  filename, fileExt: "usdz", data: fileData) {
+                completion(fileData)
+            } else {
+                completion(nil)
+            }
+        }
     }
     
     func getPublicObjectsFromWbeb(tableView: UITableView?) {
@@ -189,6 +221,8 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
             }
         }
     }
+    
+    
     
     func getObjectsFromWbeb(tableView: UITableView?) {
         let urlComponent = gs.getUrlComponents(path: "/objects/all")
@@ -218,7 +252,7 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
             let objectJSON: Object? = self.getJSONObject(from: data)
             guard let object = objectJSON else { return }
             guard let name = object.internalFilename, let dataFile = loadObject.data else { return }
-            if self.dataProvider.saveDataToFile(fileName: name, fileExt: ".usdz", data: dataFile) {
+            if self.dataProvider.saveDataToFile(fileName: name, fileExt: "usdz", data: dataFile) {
                 self.saveFileServer(object: object, loadObject: loadObject)
             }
         }
@@ -354,14 +388,19 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
     }
     
     func tabbarSetup(user: User?, tbc: UITabBarController?) {
-       tbc?.viewControllers = self.initialTBCViewControllers
-       if user == nil {
-        tbc?.viewControllers?.remove(at: 1)
-        tbc?.viewControllers?.remove(at: 1)
+        tbc?.viewControllers = self.initialTBCViewControllers
+        if user == nil {
+            tbc?.viewControllers?.remove(at: 1)
+            tbc?.viewControllers?.remove(at: 1)
+        } else {
+            self.store.fetchLoadObjects()
+            self.loadObjects = self.store.fetchedLoadObjects
+            tbc?.tabBar.items?[1].badgeValue = String(loadObjects.count)
+            if let user = user, user.isadmin ?? 0 != 1  {
+                tbc?.viewControllers?.remove(at: 2)
+            }
         }
-       if let user = user, user.isadmin ?? 0 != 1  {
-        tbc?.viewControllers?.remove(at: 2)
-       }
+        
     }
     
     //MARK: JSON = decodable
