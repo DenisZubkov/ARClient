@@ -24,7 +24,7 @@ class LoadObjectCaruselViewController: UIViewController, QLPreviewControllerDele
         rootViewController.loadObjects = rootViewController.store.fetchedLoadObjects
         loadObjectCollectionView.set(cells: rootViewController.loadObjects)
         loadObjectCollectionView.reloadData()
-        tabBarController?.tabBar.items?[1].badgeValue = String(rootViewController.loadObjects.count)
+        tabBarController?.tabBar.items?[1].badgeValue = gs.getStringForBadgeFrom(int: rootViewController.loadObjects.count)
     }
     
     
@@ -38,7 +38,7 @@ class LoadObjectCaruselViewController: UIViewController, QLPreviewControllerDele
         loadObjectCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         loadObjectCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         loadObjectCollectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 10).isActive = true
-        loadObjectCollectionView.heightAnchor.constraint(equalToConstant: 600).isActive = true
+        loadObjectCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 10).isActive = true
         loadObjectCollectionView.set(cells: rootViewController.loadObjects)
         loadObjectCollectionView.mainViewController = self
     }
@@ -48,8 +48,9 @@ class LoadObjectCaruselViewController: UIViewController, QLPreviewControllerDele
         rootViewController.loadObjects = rootViewController.store.fetchedLoadObjects
         loadObjectCollectionView.set(cells: rootViewController.loadObjects)
         loadObjectCollectionView.reloadData()
-        tabBarController?.tabBar.items?[1].badgeValue = String(rootViewController.loadObjects.count)
+        tabBarController?.tabBar.items?[1].badgeValue = gs.getStringForBadgeFrom(int: rootViewController.loadObjects.count)
     }
+    
     
     func modelActions (loadObject: LoadObject, indexPath: IndexPath) {
         let ac = UIAlertController(title:  nil, message: "Действия с моделью \(loadObject.name ?? "")", preferredStyle: .actionSheet)
@@ -59,7 +60,7 @@ class LoadObjectCaruselViewController: UIViewController, QLPreviewControllerDele
             self.loadObjectCollectionView.deleteItems(at: [indexPath])
             self.loadObjectCollectionView.cells = self.rootViewController.loadObjects
             self.loadObjectCollectionView.reloadData()
-            self.tabBarController?.tabBar.items?[1].badgeValue = String(self.rootViewController.loadObjects.count)
+            self.tabBarController?.tabBar.items?[1].badgeValue = self.gs.getStringForBadgeFrom(int: self.rootViewController.loadObjects.count)
         }
         ac.addAction(addModel)
         let deleteModel = UIAlertAction(title:  "Удалить модель из галереи", style: .default) { action in
@@ -68,7 +69,7 @@ class LoadObjectCaruselViewController: UIViewController, QLPreviewControllerDele
             self.rootViewController.store.delete(loadObject: loadObject)
             self.loadObjectCollectionView.cells = self.rootViewController.loadObjects
             self.loadObjectCollectionView.reloadData()
-            self.tabBarController?.tabBar.items?[1].badgeValue = String(self.rootViewController.loadObjects.count)
+            self.tabBarController?.tabBar.items?[1].badgeValue = self.gs.getStringForBadgeFrom(int: self.rootViewController.loadObjects.count)
             
         }
         ac.addAction(deleteModel)

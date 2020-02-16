@@ -176,38 +176,41 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
         present(alertData, animated: true, completion: nil)
     }
     
-    func getFileFromWeb(object: Object, completion: @escaping (Data?) -> Void) {
+    func getFileFromWeb(object: Object, completion: @escaping (Data?, Data?) -> Void) {
         guard let filename = object.internalFilename else {
-            completion(nil)
+            completion(nil, nil)
             return
         }
         let urlComponent = gs.getUrlComponents(path: "/file/\(filename)")
         guard let url = urlComponent.url else {
-            completion(nil)
+            completion(nil, nil)
             return
         }
         dataProvider.login = currentUser.username
         dataProvider.password = currentUser.password
         dataProvider.runRequest(method: .get, url: url, body: nil) { data in
             guard let data = data else {
-                completion(nil)
+                completion(nil, nil)
                 return
             }
             //UserDefaults.standard.set(data, forKey: url.absoluteString)
             let objectFileJSON: ObjectFile? = self.getJSONObject(from: data)
-            guard let objectFile = objectFileJSON, let fileData = objectFile.data, let filename = object.internalFilename else {
-                completion(nil)
+            guard let objectFile = objectFileJSON, let fileData = objectFile.fileData, let thumbnailData = objectFile.thumbnailData, let filename = object.internalFilename else {
+                completion(nil, nil)
                 return
             }
-            if self.dataProvider.saveDataToFile(fileName:  filename, fileExt: "usdz", data: fileData) {
-                completion(fileData)
+            if self.dataProvider.saveDataToFile(fileName:  filename, fileExt: "usdz", data: fileData),
+                self.dataProvider.saveDataToFile(fileName:  filename, fileExt: "png", data: fileData)  {
+                completion(fileData, thumbnailData)
             } else {
-                completion(nil)
+                completion(nil, nil)
             }
         }
     }
     
-    func getPublicObjectsFromWbeb(tableView: UITableView?) {
+     //MARK: - Object CRUD
+    
+    func getPublicObjectsFromWbeb(tableView: UITableView?, collectionView: UICollectionView?) {
         let urlComponent = gs.getUrlComponents(path: "/objects/public")
         guard let url = urlComponent.url else { return }
         dataProvider.downloadPublicData(url: url) { data in
@@ -217,14 +220,21 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
             guard let objects = objectsJSON else { return }
             self.objects = objects
             if tableView != nil {
-                tableView?.reloadData()
+                 DispatchQueue.main.async {
+                    tableView?.reloadData()
+                 }
+            }
+            if collectionView != nil {
+                DispatchQueue.main.async {
+                    collectionView?.reloadData()
+                }
             }
         }
     }
     
     
     
-    func getObjectsFromWbeb(tableView: UITableView?) {
+    func getObjectsFromWbeb(tableView: UITableView?, collectionView: UICollectionView?) {
         let urlComponent = gs.getUrlComponents(path: "/objects/all")
         guard let url = urlComponent.url else { return }
         dataProvider.login = currentUser.username
@@ -236,7 +246,14 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
             guard let objects = objectsJSON else { return }
             self.objects = objects
             if tableView != nil {
-                tableView?.reloadData()
+                 DispatchQueue.main.async {
+                    tableView?.reloadData()
+                 }
+            }
+            if collectionView != nil {
+                DispatchQueue.main.async {
+                    collectionView?.reloadData()
+                }
             }
         }
     }
@@ -251,9 +268,45 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
             guard let data = data else { return }
             let objectJSON: Object? = self.getJSONObject(from: data)
             guard let object = objectJSON else { return }
-            guard let name = object.internalFilename, let dataFile = loadObject.data else { return }
-            if self.dataProvider.saveDataToFile(fileName: name, fileExt: "usdz", data: dataFile) {
+            guard let name = object.internalFilename, let dataFile = loadObject.data, let dataThumbnail = loadObject.thumbnail else { return }
+            if self.dataProvider.saveDataToFile(fileName: name, fileExt: "usdz", data: dataFile),
+                self.dataProvider.saveDataToFile(fileName: name, fileExt: "png", data: dataThumbnail)  {
                 self.saveFileServer(object: object, loadObject: loadObject)
+            }
+        }
+    }
+    
+    func putObjectToWeb(object: Object, collectionView: UICollectionView?) {
+        guard let id = object.id else { return }
+        let urlComponent = gs.getUrlComponents(path: "/object/\(id)")
+        guard let url = urlComponent.url else { return }
+        dataProvider.login = currentUser.username
+        dataProvider.password = currentUser.password
+        guard let body = putJSONData(from: object) else { return }
+        dataProvider.runRequest(method: .put, url: url, body: body) { data in
+            guard let data = data else { return }
+            if collectionView != nil {
+                DispatchQueue.main.async {
+                    collectionView?.reloadData()
+                }
+            }
+            print("Response: \(String(data: data, encoding: .utf8) ?? "")")
+        }
+    }
+    
+    func deleteObjectToWeb(object: Object, collectionView: UICollectionView?) {
+        guard let id = object.id else { return }
+        let urlComponent = gs.getUrlComponents(path: "/object/\(id)")
+        guard let url = urlComponent.url else { return }
+        dataProvider.login = currentUser.username
+        dataProvider.password = currentUser.password
+        dataProvider.runRequest(method: .delete, url: url, body: nil) { data in
+            guard let data = data else { return }
+            print("Response: \(String(data: data, encoding: .utf8) ?? "")")
+            if collectionView != nil {
+                 DispatchQueue.main.async {
+                    collectionView?.reloadData()
+                }
             }
         }
     }
@@ -268,14 +321,15 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
             }
         }
         let id = maxId + 1
-        let object = Object(id: id, userId: userId, name: loadObject.name, url: urlSource, serverUrl: nil, date: Date(), thumbnail: nil, serverThumbnail: nil, ispublic: 0)
+        let object = Object(id: id, userId: userId, name: loadObject.name, desc: loadObject.comment, urlSource: urlSource, urlServer: nil, urlThumbnail: nil, date: Date(), ispublic: 0)
+        
         postObjectToWeb(object: object, loadObject: loadObject)
     }
 
     
     func saveFileServer(object: Object, loadObject: LoadObject) {
-        guard let filename = object.internalFilename, let fileData = loadObject.data else { return }
-        let objectFile = ObjectFile(filename: filename, data: fileData)
+        guard let filename = object.internalFilename, let fileData = loadObject.data, let thumbnailData = loadObject.thumbnail else { return }
+        let objectFile = ObjectFile(filename: filename, fileData: fileData, thumbnailData: thumbnailData)
         guard let body = putJSONData(from: objectFile) else { return }
         let urlComponent = gs.getUrlComponents(path: "/file")
         guard let url = urlComponent.url else { return }
@@ -284,7 +338,7 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
         dataProvider.runRequest(method: .post, url: url, body: body) { data in
             guard let _ = data else { return }
             self.store.delete(loadObject: loadObject)
-            self.getObjectsFromWbeb(tableView: nil)
+            self.getObjectsFromWbeb(tableView: nil, collectionView: nil)
         }
         
     }
@@ -292,7 +346,7 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
     
     //MARK: - User CRUD
     
-    func getUsersFromWeb(tableView: UITableView?) {
+    func getUsersFromWeb(tableView: UITableView?, collectionView: UICollectionView?) {
         let urlComponent = gs.getUrlComponents(path: "/users/all")
         guard let url = urlComponent.url else { return }
         dataProvider.login = self.currentUser.username
@@ -304,7 +358,16 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
             guard let users = usersJSON else { return }
             self.users = users
             if tableView != nil {
-                tableView?.reloadData()
+                DispatchQueue.main.async {
+                    tableView?.reloadData()
+                }
+            } else {
+                self.currentUser = users.filter({$0.username == self.checkSavedUser().username}).first
+            }
+            if collectionView != nil {
+                DispatchQueue.main.async {
+                    collectionView?.reloadData()
+                }
             } else {
                 self.currentUser = users.filter({$0.username == self.checkSavedUser().username}).first
             }
@@ -365,9 +428,9 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
                 }
                 return
             }
-            let objectsJSON: [Object]? = self.getJSONArray(from: data)
+            let usersJSON: [User]? = self.getJSONArray(from: data)
             
-            guard let _ = objectsJSON else {
+            guard let _ = usersJSON else {
                 DispatchQueue.main.async {
                     self.showMessage(title: "Вход в приложение", message: "Неверные логин или пароль")
                     self.UIElements(hide: false)
@@ -381,7 +444,7 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
             //self.appSetup()
             self.saveUser(user: user)
             self.currentUser = user
-            self.getUsersFromWeb(tableView: nil)
+            self.getUsersFromWeb(tableView: nil, collectionView: nil)
             self.currentUser = self.users.filter({$0.username == user.username!}).first
             self.performSegue(withIdentifier: "mainSegue", sender: nil)
         }
@@ -395,7 +458,7 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
         } else {
             self.store.fetchLoadObjects()
             self.loadObjects = self.store.fetchedLoadObjects
-            tbc?.tabBar.items?[1].badgeValue = String(loadObjects.count)
+            tbc?.tabBar.items?[1].badgeValue = gs.getStringForBadgeFrom(int: loadObjects.count)
             if let user = user, user.isadmin ?? 0 != 1  {
                 tbc?.viewControllers?.remove(at: 2)
             }

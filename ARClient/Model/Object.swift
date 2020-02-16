@@ -12,11 +12,11 @@ struct Object: Codable {
     var id: Int?
     var userId: Int
     var name: String?
-    var url: URL
-    var serverUrl: URL?
+    var desc: String?
+    var urlSource: URL
+    var urlServer: URL?
+    var urlThumbnail: URL?
     var date: Date
-    var thumbnail: URL?
-    var serverThumbnail: URL?
     var ispublic: Int?
     
     

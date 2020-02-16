@@ -15,9 +15,11 @@
 		7A8108FD23F7F875009D0051 /* LoadObjectCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8108FC23F7F875009D0051 /* LoadObjectCollectionView.swift */; };
 		7AA60CD723F7D4AC00D1D8CB /* LoadObjectCaruselViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA60CD623F7D4AC00D1D8CB /* LoadObjectCaruselViewController.swift */; };
 		7AA60CDB23F7D52800D1D8CB /* LoadObjectCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA60CDA23F7D52800D1D8CB /* LoadObjectCollectionViewCell.swift */; };
+		7ABE946423F952B500C267CB /* ObjectCarucelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABE946323F952B500C267CB /* ObjectCarucelViewController.swift */; };
+		7ABE946723F9536300C267CB /* ObjectCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABE946623F9536300C267CB /* ObjectCollectionView.swift */; };
+		7ABE946923F9537500C267CB /* ObjectCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABE946823F9537500C267CB /* ObjectCollectionViewCell.swift */; };
+		7ABE946B23F97DBB00C267CB /* ObjectDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABE946A23F97DBB00C267CB /* ObjectDetailViewController.swift */; };
 		7ACC444B23E6BC09006F41A3 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ACC444A23E6BC09006F41A3 /* Token.swift */; };
-		7AD9856B23E6C60900FA06BD /* CatalogListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD9856A23E6C60900FA06BD /* CatalogListViewController.swift */; };
-		7AD9856D23E6C63500FA06BD /* CatalogListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD9856C23E6C63500FA06BD /* CatalogListTableViewCell.swift */; };
 		7AD9856F23E6D15400FA06BD /* UsersListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD9856E23E6D15400FA06BD /* UsersListViewController.swift */; };
 		7ADADD0423F56E6900A23406 /* ObjectFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ADADD0323F56E6900A23406 /* ObjectFile.swift */; };
 		7AEB48D823EF0A5F007BBCAB /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF140C123E5DB5900FCAE7B /* CoreDataStack.swift */; };
@@ -73,9 +75,11 @@
 		7A8108FC23F7F875009D0051 /* LoadObjectCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadObjectCollectionView.swift; sourceTree = "<group>"; };
 		7AA60CD623F7D4AC00D1D8CB /* LoadObjectCaruselViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadObjectCaruselViewController.swift; sourceTree = "<group>"; };
 		7AA60CDA23F7D52800D1D8CB /* LoadObjectCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadObjectCollectionViewCell.swift; sourceTree = "<group>"; };
+		7ABE946323F952B500C267CB /* ObjectCarucelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectCarucelViewController.swift; sourceTree = "<group>"; };
+		7ABE946623F9536300C267CB /* ObjectCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectCollectionView.swift; sourceTree = "<group>"; };
+		7ABE946823F9537500C267CB /* ObjectCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectCollectionViewCell.swift; sourceTree = "<group>"; };
+		7ABE946A23F97DBB00C267CB /* ObjectDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDetailViewController.swift; sourceTree = "<group>"; };
 		7ACC444A23E6BC09006F41A3 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
-		7AD9856A23E6C60900FA06BD /* CatalogListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogListViewController.swift; sourceTree = "<group>"; };
-		7AD9856C23E6C63500FA06BD /* CatalogListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogListTableViewCell.swift; sourceTree = "<group>"; };
 		7AD9856E23E6D15400FA06BD /* UsersListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersListViewController.swift; sourceTree = "<group>"; };
 		7ADADD0323F56E6900A23406 /* ObjectFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectFile.swift; sourceTree = "<group>"; };
 		7AEB48D223EE983F007BBCAB /* ARClientModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ARClientModel.xcdatamodel; sourceTree = "<group>"; };
@@ -132,6 +136,17 @@
 			path = ARLoad;
 			sourceTree = "<group>";
 		};
+		7ABE946523F952BC00C267CB /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				7ABE946323F952B500C267CB /* ObjectCarucelViewController.swift */,
+				7ABE946623F9536300C267CB /* ObjectCollectionView.swift */,
+				7ABE946823F9537500C267CB /* ObjectCollectionViewCell.swift */,
+				7ABE946A23F97DBB00C267CB /* ObjectDetailViewController.swift */,
+			);
+			path = Objects;
+			sourceTree = "<group>";
+		};
 		7ACC437B23E6B3C4006F41A3 /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -139,15 +154,6 @@
 				7AF140C323E5DBCE00FCAE7B /* LoadViewController.swift */,
 			);
 			path = Data;
-			sourceTree = "<group>";
-		};
-		7AD9856923E6C5CF00FA06BD /* Catalog */ = {
-			isa = PBXGroup;
-			children = (
-				7AD9856A23E6C60900FA06BD /* CatalogListViewController.swift */,
-				7AD9856C23E6C63500FA06BD /* CatalogListTableViewCell.swift */,
-			);
-			path = Catalog;
 			sourceTree = "<group>";
 		};
 		7AD9857023E6D15B00FA06BD /* Users */ = {
@@ -164,8 +170,8 @@
 			isa = PBXGroup;
 			children = (
 				7AA60CD623F7D4AC00D1D8CB /* LoadObjectCaruselViewController.swift */,
-				7AA60CDA23F7D52800D1D8CB /* LoadObjectCollectionViewCell.swift */,
 				7A8108FC23F7F875009D0051 /* LoadObjectCollectionView.swift */,
+				7AA60CDA23F7D52800D1D8CB /* LoadObjectCollectionViewCell.swift */,
 			);
 			path = LoadObjects;
 			sourceTree = "<group>";
@@ -206,7 +212,7 @@
 				7AF140E723E6A06000FCAE7B /* Main */,
 				7AF140EC23E6A0FC00FCAE7B /* Model */,
 				7ACC437B23E6B3C4006F41A3 /* Data */,
-				7AD9856923E6C5CF00FA06BD /* Catalog */,
+				7ABE946523F952BC00C267CB /* Objects */,
 				7AEB48EA23EF2459007BBCAB /* LoadObjects */,
 				7AD9857023E6D15B00FA06BD /* Users */,
 				7A3261BC23F0031400FE91A5 /* Settings */,
@@ -354,14 +360,16 @@
 				7AEB48F023EFE81A007BBCAB /* UsersListTableViewCell.swift in Sources */,
 				7ACC444B23E6BC09006F41A3 /* Token.swift in Sources */,
 				7AF140C423E5DBCE00FCAE7B /* LoadViewController.swift in Sources */,
-				7AD9856D23E6C63500FA06BD /* CatalogListTableViewCell.swift in Sources */,
 				7AA60CD723F7D4AC00D1D8CB /* LoadObjectCaruselViewController.swift in Sources */,
-				7AD9856B23E6C60900FA06BD /* CatalogListViewController.swift in Sources */,
 				7AF140AE23E5DB0C00FCAE7B /* AppDelegate.swift in Sources */,
+				7ABE946723F9536300C267CB /* ObjectCollectionView.swift in Sources */,
 				7AEB48E423EF115D007BBCAB /* ARClientModel.xcdatamodeld in Sources */,
+				7ABE946923F9537500C267CB /* ObjectCollectionViewCell.swift in Sources */,
 				7AD9856F23E6D15400FA06BD /* UsersListViewController.swift in Sources */,
+				7ABE946B23F97DBB00C267CB /* ObjectDetailViewController.swift in Sources */,
 				7AF140F023E6AA7D00FCAE7B /* DataProvider.swift in Sources */,
 				7ADADD0423F56E6900A23406 /* ObjectFile.swift in Sources */,
+				7ABE946423F952B500C267CB /* ObjectCarucelViewController.swift in Sources */,
 				7A3261BB23EFFBFD00FE91A5 /* UserDetailViewController.swift in Sources */,
 				7A3261BE23F0032C00FE91A5 /* SettingsViewController.swift in Sources */,
 				7AF140C223E5DB5900FCAE7B /* CoreDataStack.swift in Sources */,

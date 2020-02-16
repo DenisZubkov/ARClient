@@ -11,21 +11,21 @@ import UIKit
 class UsersListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     let gs = GlobalSettings()
-       let rootViewController = AppDelegate.shared.rootViewController
-       let dataProvider = DataProvider()
-
+    let rootViewController = AppDelegate.shared.rootViewController
+    let dataProvider = DataProvider()
+    
     
     @IBOutlet weak var usersTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        rootViewController.getUsersFromWeb(tableView: usersTableView)
-        rootViewController.getObjectsFromWbeb(tableView: usersTableView)
+        rootViewController.getUsersFromWeb(tableView: usersTableView, collectionView: nil)
+        rootViewController.getObjectsFromWbeb(tableView: usersTableView, collectionView: nil)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -41,7 +41,7 @@ class UsersListViewController: UIViewController, UITableViewDataSource, UITableV
         return cell
     }
     
-     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
@@ -57,14 +57,6 @@ class UsersListViewController: UIViewController, UITableViewDataSource, UITableV
     
     @IBAction func returnFromEdit(unwindSegue: UIStoryboardSegue) {
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+    
+    
 }

@@ -29,7 +29,7 @@ class LoadObjectCollectionView: UICollectionView, UICollectionViewDelegate, UICo
         register(LoadObjectCollectionViewCell.self, forCellWithReuseIdentifier: LoadObjectCollectionViewCell.reuseId)
         
         translatesAutoresizingMaskIntoConstraints = false
-        layout.minimumLineSpacing = GlobalSettings.loadObjectMinimumLineSpacing
+        layout.minimumLineSpacing = GlobalSettings.minimumLineSpacing
         contentInset = UIEdgeInsets(top: 0, left: GlobalSettings.leftDistanceToView, bottom: 0, right: GlobalSettings.rightDistanceToView)
         
         
@@ -59,31 +59,44 @@ class LoadObjectCollectionView: UICollectionView, UICollectionViewDelegate, UICo
             let filesizeString = bcf.string(fromByteCount: Int64(filesize))
             cell.sizeLabel.text = filesizeString
         }
-        
-        if let name = cells[indexPath.row].name {
-            if let url = dataProvider.getUrlFile(fileName: name, fileExt: "usdz"),
-                fileManager.fileExists(atPath: url.path) {
-                dataProvider.generateThumbnailRepresentations(url: url) { image in
-                    if let image = image {
-                        cell.mainImageView.image = image
+        if let imageData = cells[indexPath.row].thumbnail {
+            cell.mainImageView.image = UIImage(data: imageData)
+        } else {
+            
+            if let name = cells[indexPath.row].name {
+                if let url = dataProvider.getUrlFile(fileName: name, fileExt: "usdz"),
+                    fileManager.fileExists(atPath: url.path) {
+                    dataProvider.generateThumbnailRepresentations(url: url) { image in
+                        if let image = image {
+                            cell.mainImageView.image = image
+                            self.cells[indexPath.row].thumbnail = image.pngData()
+                            if let data = image.pngData() {
+                                let _ = self.dataProvider.saveDataToFile(fileName: name, fileExt: "png", data: data)
+                            }
+                        }
                     }
-                }
-            } else {
-                if let data = cells[indexPath.row].data {
-                    if dataProvider.saveDataToFile(fileName: name, fileExt: "usdz", data: data) {
-                        if let url = dataProvider.getUrlFile(fileName: name, fileExt: "usdz"),
-                            fileManager.fileExists(atPath: url.path) {
-                            dataProvider.generateThumbnailRepresentations(url: url) { image in
-                                if let image = image {
-                                    cell.mainImageView.image = image
-                                } else {
-                                
+                } else {
+                    if let data = cells[indexPath.row].data {
+                        if dataProvider.saveDataToFile(fileName: name, fileExt: "usdz", data: data) {
+                            if let url = dataProvider.getUrlFile(fileName: name, fileExt: "usdz"),
+                                fileManager.fileExists(atPath: url.path) {
+                                dataProvider.generateThumbnailRepresentations(url: url) { image in
+                                    if let image = image {
+                                        cell.mainImageView.image = image
+                                        self.cells[indexPath.row].thumbnail = image.pngData()
+                                        if let data = image.pngData() {
+                                            let _ = self.dataProvider.saveDataToFile(fileName: name, fileExt: "png", data: data)
+                                        }
+                                    } else {
+                                        
+                                    }
                                 }
                             }
                         }
                     }
                 }
             }
+            rootViewController.store.saveContext()
         }
         
         return cell
@@ -91,7 +104,7 @@ class LoadObjectCollectionView: UICollectionView, UICollectionViewDelegate, UICo
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: GlobalSettings.loadObjectItemWidth, height: frame.height * 0.8)
+        return CGSize(width: GlobalSettings.itemWidth, height: frame.height * 0.8)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

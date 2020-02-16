@@ -164,7 +164,7 @@ class DataProvider: NSObject {
         // Set up the parameters of the request.
         guard FileManager.default.fileExists(atPath: url.path) else { return }
         
-        let size: CGSize = CGSize(width: 90, height: 120)
+        let size: CGSize = CGSize(width: 90, height: 90)
         let scale = UIScreen.main.scale
         
         // Create the thumbnail request.

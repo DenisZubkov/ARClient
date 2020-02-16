@@ -1,16 +1,16 @@
 //
-//  LoadObjectCollectionViewCell.swift
+//  ObjectCollectionViewCell.swift
 //  ARClient
 //
-//  Created by Dennis Zubkoff on 15.02.2020.
+//  Created by Dennis Zubkoff on 16.02.2020.
 //  Copyright © 2020 Denis Zubkov. All rights reserved.
 //
 
 import UIKit
 
-class LoadObjectCollectionViewCell: UICollectionViewCell {
+class ObjectCollectionViewCell: UICollectionViewCell {
     
-    static let reuseId = "LoadObjectCollectionViewCell"
+    static let reuseId = "ObjectCollectionViewCell"
     
     let mainImageView: UIImageView = {
        let imageView = UIImageView()
@@ -65,7 +65,7 @@ class LoadObjectCollectionViewCell: UICollectionViewCell {
         mainImageView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         mainImageView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         mainImageView.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
-        mainImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 3/5).isActive = true
+        mainImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 2/5).isActive = true
         
         // nameLabel constraints
         nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20).isActive = true

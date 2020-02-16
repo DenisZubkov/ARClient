@@ -23,8 +23,8 @@ class GlobalSettings {
     let buttonCornerRadius = 5
     static let leftDistanceToView: CGFloat = 40
     static let rightDistanceToView: CGFloat = 40
-    static let loadObjectMinimumLineSpacing: CGFloat = 10
-    static let loadObjectItemWidth = (UIScreen.main.bounds.width - leftDistanceToView - rightDistanceToView - (loadObjectMinimumLineSpacing / 1.0)) / 1.0
+    static let minimumLineSpacing: CGFloat = 10
+    static let itemWidth = (UIScreen.main.bounds.width - leftDistanceToView - rightDistanceToView - (minimumLineSpacing / 1.0)) / 1.0
     
     
     func getUrlComponents(path: String) -> URLComponents {
@@ -41,6 +41,13 @@ class GlobalSettings {
         dateFormatter.dateFormat = "dd.MM.yyyy hh:mm"
         dateFormatter.timeZone = TimeZone(secondsFromGMT: 60 * 60 * 3)
         return dateFormatter.string(from: dateTime)
+    }
+    
+    func getStringForBadgeFrom(int: Int?) -> String? {
+        guard let int = int else { return nil }
+        guard int != 0 else { return nil }
+        return String(int)
+        
     }
     
 }
