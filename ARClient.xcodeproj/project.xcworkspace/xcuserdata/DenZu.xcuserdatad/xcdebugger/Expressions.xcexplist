@@ -113,6 +113,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "ObjectCarucelViewController.viewDidAppear(_:):ObjectCarucelViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "rootViewController.objects.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in LoadViewController.authorize(user:):LoadViewController.swift">
       </ContextState>
       <ContextState
@@ -160,6 +168,9 @@
                value = "request.url?.absoluteString">
             </PersistentString>
             <PersistentString
+               value = "url.absoluteString">
+            </PersistentString>
+            <PersistentString
                value = "request.login">
             </PersistentString>
          </PersistentStrings>
@@ -184,6 +195,14 @@
             </PersistentString>
             <PersistentString
                value = "(user?.isadmin == 1 ? true : false) == isAdminSwitch.isOn ">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "DataProvider.getRequest(method:url:body:):DataProvider.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "url.absoluteString">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
