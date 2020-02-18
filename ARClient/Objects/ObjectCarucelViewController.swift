@@ -61,21 +61,22 @@ class ObjectCarucelViewController: UIViewController, QLPreviewControllerDelegate
     func modelActions (object: Object, indexPath: IndexPath) {
         
         let ac = UIAlertController(title:  nil, message: "Действия с моделью \(object.name ?? "")", preferredStyle: .actionSheet)
-        
-        let addModel = UIAlertAction(title:  "Редактировать модель", style: .default) { action in
-            self.currentObject = object
-            self.performSegue(withIdentifier: "ObjectDetailSegue", sender: nil)
+        if let user = rootViewController.currentUser,
+            user.isadmin == 1 || (rootViewController.currentUser.isadmin != 1 && object.userId == user.id ?? -1 ) {
+            let addModel = UIAlertAction(title:  "Редактировать модель", style: .default) { action in
+                self.currentObject = object
+                self.performSegue(withIdentifier: "ObjectDetailSegue", sender: nil)
+            }
+            ac.addAction(addModel)
+            
+            let deleteModel = UIAlertAction(title:  "Удалить модель из каталога", style: .default) { action in
+                self.rootViewController.objects.remove(at: indexPath.row)
+                self.objectCollectionView.deleteItems(at: [indexPath])
+                self.rootViewController.deleteObjectToWeb(object: object, collectionView: self.objectCollectionView)
+                self.rootViewController.deleteFileToWeb(object: object)
+            }
+            ac.addAction(deleteModel)
         }
-        ac.addAction(addModel)
-        
-        let deleteModel = UIAlertAction(title:  "Удалить модель из каталога", style: .default) { action in
-            self.rootViewController.objects.remove(at: indexPath.row)
-            self.objectCollectionView.deleteItems(at: [indexPath])
-            self.rootViewController.deleteObjectToWeb(object: object, collectionView: self.objectCollectionView)
-            self.objectCollectionView.reloadData()
-        }
-        ac.addAction(deleteModel)
-        
         let viewModel = UIAlertAction(title:  "Посмотреть модель", style: .default) { action in
             self.currentObject = object
             guard  let name = self.currentObject?.internalFilename else { return }

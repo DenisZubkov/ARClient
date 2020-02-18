@@ -251,6 +251,18 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    func deleteFileToWeb(object: Object) {
+        guard let id = object.internalFilename else { return }
+        let urlComponent = gs.getUrlComponents(path: "/file/\(id)")
+        guard let url = urlComponent.url else { return }
+        dataProvider.login = currentUser.username
+        dataProvider.password = currentUser.password
+        dataProvider.runRequest(method: .delete, url: url, body: nil) { data in
+            guard let data = data else { return }
+            print("Response: \(String(data: data, encoding: .utf8) ?? "")")
+        }
+    }
+    
      //MARK: - Object CRUD
     
     func getPublicObjectsFromWeb(tableView: UITableView?, collectionView: UICollectionView?) {
@@ -336,7 +348,7 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
             //UserDefaults.standard.set(data, forKey: url.absoluteString)
             let objectsJSON: [Object]? = self.getJSONArray(from: data)
             if let objects = objectsJSON {
-                self.objects = objects
+                self.objects = objects.filter({$0.ispublic != 1})
             } else {
                 self.objects = []
             }
@@ -347,7 +359,13 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
                 //UserDefaults.standard.set(data, forKey: url.absoluteString)
                 let objectsJSON: [Object]? = self.getJSONArray(from: data)
                 if  let objects = objectsJSON {
-                    self.objects += objects
+                    for object in objects {
+                        if let _ = self.objects.filter({$0.id == object.id}).first {
+                            continue
+                        } else {
+                            self.objects.append(object)
+                        }
+                    }
                 }
                 if tableView != nil {
                      DispatchQueue.main.async {
