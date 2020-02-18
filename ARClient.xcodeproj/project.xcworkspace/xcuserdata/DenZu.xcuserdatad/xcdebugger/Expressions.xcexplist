@@ -146,6 +146,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #3 in ObjectCarucelViewController.modelActions(object:indexPath:):ObjectCarucelViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "urlComponent.url">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in DataProvider.downloadData(url:completion:):DataProvider.swift">
          <PersistentStrings>
             <PersistentString

@@ -25,7 +25,7 @@ class UsersListViewController: UIViewController, UITableViewDataSource, UITableV
     
     override func viewDidAppear(_ animated: Bool) {
         rootViewController.getUsersFromWeb(tableView: usersTableView, collectionView: nil)
-        rootViewController.getObjectsFromWbeb(tableView: usersTableView, collectionView: nil)
+        rootViewController.getObjectsFromWeb(tableView: usersTableView, collectionView: nil)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

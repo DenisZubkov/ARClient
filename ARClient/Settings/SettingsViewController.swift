@@ -21,6 +21,12 @@ class SettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
         if rootViewController.currentUser == nil {
             userLabel.text = "Вход не выполнен"
             loginButton.setTitle("Войти", for: .normal)
@@ -28,8 +34,6 @@ class SettingsViewController: UIViewController {
             userLabel.text = rootViewController.currentUser?.username
             loginButton.setTitle("Выйти", for: .normal)
         }
-        
-        // Do any additional setup after loading the view.
     }
     
     @IBAction func loginButtonPressed(_ sender: UIButton) {
@@ -41,6 +45,7 @@ class SettingsViewController: UIViewController {
             userLabel.text = "Вход не выполнен"
 //            UserDefaults.standard.removeObject(forKey: "USERNAME")
             UserDefaults.standard.removeObject(forKey: "PASSWORD")
+            rootViewController.tabbarSetup(user: nil, tbc: tabBarController)
         }
     }
     

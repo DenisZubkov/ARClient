@@ -102,7 +102,7 @@ class LoadObjectCaruselViewController: UIViewController, QLPreviewControllerDele
     
      func previewController(_ controller: QLPreviewController, previewItemAt index: Int) -> QLPreviewItem {
       if let name = currentLoadObject?.name,
-          let url = dataProvider.getUrlFile(fileName: name, fileExt: "usdz") {
+        let url = dataProvider.getUrlFile(fileName: name, fileExt: .usdz) {
               return url as QLPreviewItem
       }
           let url = URL(string: "https://apple.com")!

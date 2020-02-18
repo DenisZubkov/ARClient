@@ -176,41 +176,84 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
         present(alertData, animated: true, completion: nil)
     }
     
-    func getFileFromWeb(object: Object, completion: @escaping (Data?, Data?) -> Void) {
+    // MARK: - Files
+    
+    func getFileFromWeb(fileExt: FileType, object: Object, completion: @escaping (Data?) -> Void) {
         guard let filename = object.internalFilename else {
-            completion(nil, nil)
+            completion(nil)
             return
         }
-        let urlComponent = gs.getUrlComponents(path: "/file/\(filename)")
+        let urlComponent = gs.getUrlComponents(path: "\(fileExt.getPath)/\(filename)")
         guard let url = urlComponent.url else {
-            completion(nil, nil)
+            completion(nil)
             return
         }
         dataProvider.login = currentUser.username
         dataProvider.password = currentUser.password
         dataProvider.runRequest(method: .get, url: url, body: nil) { data in
             guard let data = data else {
-                completion(nil, nil)
+                completion(nil)
                 return
             }
             //UserDefaults.standard.set(data, forKey: url.absoluteString)
             let objectFileJSON: ObjectFile? = self.getJSONObject(from: data)
-            guard let objectFile = objectFileJSON, let fileData = objectFile.fileData, let thumbnailData = objectFile.thumbnailData, let filename = object.internalFilename else {
-                completion(nil, nil)
+            
+            guard let objectFile = objectFileJSON, let filename = object.internalFilename else {
+                completion(nil)
                 return
             }
-            if self.dataProvider.saveDataToFile(fileName:  filename, fileExt: "usdz", data: fileData),
-                self.dataProvider.saveDataToFile(fileName:  filename, fileExt: "png", data: fileData)  {
-                completion(fileData, thumbnailData)
+            var fileData: Data?
+            switch fileExt {
+            case .usdz :
+                fileData = objectFile.fileData
+            case .png :
+                fileData = objectFile.thumbnailData
+            default :
+                completion(nil)
+            }
+            guard let saveData = fileData else {
+                completion(nil)
+                return
+            }
+            if self.dataProvider.saveDataToFile(fileName:  filename, fileExt: fileExt, data: saveData)  {
+                completion(fileData)
             } else {
-                completion(nil, nil)
+                completion(nil)
+            }
+        }
+    }
+    
+    func getfileURL(object: Object, fileExt: FileType) -> URL? {
+        if let name = object.internalFilename,
+        let urlFile = dataProvider.getUrlFile(fileName: name, fileExt: fileExt),
+        FileManager.default.fileExists(atPath: urlFile.path) {
+            return urlFile
+        }
+        return nil
+    }
+    
+    func getFileData(object: Object, fileExt: FileType, completion: @escaping (Data?) -> Void) {
+        if let urlFile = getfileURL(object: object, fileExt: fileExt)  {
+            do {
+                let data = try Data(contentsOf: urlFile)
+                completion(data)
+            } catch {
+                completion(nil)
+            }
+        } else {
+            getFileFromWeb(fileExt: fileExt, object: object) { data in
+                guard let data = data else {
+                      completion(nil)
+                        return
+                }
+               completion(data)
             }
         }
     }
     
      //MARK: - Object CRUD
     
-    func getPublicObjectsFromWbeb(tableView: UITableView?, collectionView: UICollectionView?) {
+    func getPublicObjectsFromWeb(tableView: UITableView?, collectionView: UICollectionView?) {
         let urlComponent = gs.getUrlComponents(path: "/objects/public")
         guard let url = urlComponent.url else { return }
         dataProvider.downloadPublicData(url: url) { data in
@@ -234,7 +277,7 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
     
     
     
-    func getObjectsFromWbeb(tableView: UITableView?, collectionView: UICollectionView?) {
+    func getObjectsFromWeb(tableView: UITableView?, collectionView: UICollectionView?) {
         let urlComponent = gs.getUrlComponents(path: "/objects/all")
         guard let url = urlComponent.url else { return }
         dataProvider.login = currentUser.username
@@ -258,22 +301,110 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func postObjectToWeb(object: Object, loadObject: LoadObject) {
-        let urlComponent = gs.getUrlComponents(path: "/object")
+    func getAllObjectsFromWeb (completion: @escaping ([Object]?) -> Void) {
+        let urlComponent = gs.getUrlComponents(path: "/objects/all")
+        guard let url = urlComponent.url else {
+            completion(nil)
+            return
+        }
+        dataProvider.login = currentUser.username
+        dataProvider.password = currentUser.password
+        dataProvider.runRequest(method: .get, url: url, body: nil) { data in
+            guard let data = data else {
+                completion(nil)
+                return
+            }
+            //UserDefaults.standard.set(data, forKey: url.absoluteString)
+            let objectsJSON: [Object]? = self.getJSONArray(from: data)
+            guard let objects = objectsJSON else {
+                completion(nil)
+                return
+            }
+            completion(objects)
+        }
+    }
+    
+    func getUserObjectsFromWeb(user: User?, tableView: UITableView?, collectionView: UICollectionView?) {
+        guard let userId = user?.id else { return }
+        self.objects = []
+        let urlComponent = gs.getUrlComponents(path: "/objects/user/\(userId)")
         guard let url = urlComponent.url else { return }
         dataProvider.login = currentUser.username
         dataProvider.password = currentUser.password
-        guard let body = putJSONData(from: object) else { return }
-        dataProvider.runRequest(method: .post, url: url, body: body) { data in
+        dataProvider.runRequest(method: .get, url: url, body: nil) { data in
             guard let data = data else { return }
-            let objectJSON: Object? = self.getJSONObject(from: data)
-            guard let object = objectJSON else { return }
-            guard let name = object.internalFilename, let dataFile = loadObject.data, let dataThumbnail = loadObject.thumbnail else { return }
-            if self.dataProvider.saveDataToFile(fileName: name, fileExt: "usdz", data: dataFile),
-                self.dataProvider.saveDataToFile(fileName: name, fileExt: "png", data: dataThumbnail)  {
-                self.saveFileServer(object: object, loadObject: loadObject)
+            //UserDefaults.standard.set(data, forKey: url.absoluteString)
+            let objectsJSON: [Object]? = self.getJSONArray(from: data)
+            if let objects = objectsJSON {
+                self.objects = objects
+            } else {
+                self.objects = []
+            }
+            let urlComponent = self.gs.getUrlComponents(path: "/objects/public")
+            guard let url = urlComponent.url else { return }
+            self.dataProvider.downloadPublicData(url: url) { data in
+                guard let data = data else { return }
+                //UserDefaults.standard.set(data, forKey: url.absoluteString)
+                let objectsJSON: [Object]? = self.getJSONArray(from: data)
+                if  let objects = objectsJSON {
+                    self.objects += objects
+                }
+                if tableView != nil {
+                     DispatchQueue.main.async {
+                        tableView?.reloadData()
+                     }
+                }
+                if collectionView != nil {
+                    DispatchQueue.main.async {
+                        collectionView?.reloadData()
+                    }
+                }
+            }
+            if tableView != nil {
+                 DispatchQueue.main.async {
+                    tableView?.reloadData()
+                 }
+            }
+            if collectionView != nil {
+                DispatchQueue.main.async {
+                    collectionView?.reloadData()
+                }
             }
         }
+    }
+    
+    func postObjectToWeb(object: Object, loadObject: LoadObject) {
+        getAllObjectsFromWeb() { objects in
+            var objectPost = object
+            if let objects = objects {
+                var maxId = 0
+                for object in objects {
+                    if let id = object.id,
+                        id > maxId {
+                        maxId = object.id!
+                    }
+                }
+                objectPost.id = maxId + 1
+            } else {
+                objectPost.id = 1
+            }
+            let urlComponent = self.gs.getUrlComponents(path: "/object")
+            guard let url = urlComponent.url else { return }
+            self.dataProvider.login = self.currentUser.username
+            self.dataProvider.password = self.currentUser.password
+            guard let body = self.putJSONData(from: objectPost) else { return }
+            self.dataProvider.runRequest(method: .post, url: url, body: body) { data in
+                guard let data = data else { return }
+                let objectJSON: Object? = self.getJSONObject(from: data)
+                guard let object = objectJSON else { return }
+                guard let name = object.internalFilename, let dataFile = loadObject.data, let dataThumbnail = loadObject.thumbnail else { return }
+                if self.dataProvider.saveDataToFile(fileName: name, fileExt: .usdz, data: dataFile),
+                    self.dataProvider.saveDataToFile(fileName: name, fileExt: .png, data: dataThumbnail)  {
+                    self.saveFileServer(object: object, loadObject: loadObject)
+                }
+            }
+        }
+
     }
     
     func putObjectToWeb(object: Object, collectionView: UICollectionView?) {
@@ -313,15 +444,8 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
     
     func saveObject(from loadObject: LoadObject) {
         guard let userId = currentUser.id, let urlSource = loadObject.urlSource else { return }
-        var maxId = 0
-        for object in self.objects {
-            if let id = object.id,
-                id > maxId {
-                maxId = object.id!
-            }
-        }
-        let id = maxId + 1
-        let object = Object(id: id, userId: userId, name: loadObject.name, desc: loadObject.comment, urlSource: urlSource, urlServer: nil, urlThumbnail: nil, date: Date(), ispublic: 0)
+        
+        let object = Object(id: nil, userId: userId, name: loadObject.name, desc: loadObject.comment, urlSource: urlSource, urlServer: nil, urlThumbnail: nil, date: Date(), ispublic: 0)
         
         postObjectToWeb(object: object, loadObject: loadObject)
     }
@@ -338,7 +462,7 @@ class LoadViewController: UIViewController, UITextFieldDelegate {
         dataProvider.runRequest(method: .post, url: url, body: body) { data in
             guard let _ = data else { return }
             self.store.delete(loadObject: loadObject)
-            self.getObjectsFromWbeb(tableView: nil, collectionView: nil)
+            self.getObjectsFromWeb(tableView: nil, collectionView: nil)
         }
         
     }

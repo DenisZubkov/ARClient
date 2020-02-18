@@ -64,28 +64,28 @@ class LoadObjectCollectionView: UICollectionView, UICollectionViewDelegate, UICo
         } else {
             
             if let name = cells[indexPath.row].name {
-                if let url = dataProvider.getUrlFile(fileName: name, fileExt: "usdz"),
+                if let url = dataProvider.getUrlFile(fileName: name, fileExt: .usdz),
                     fileManager.fileExists(atPath: url.path) {
                     dataProvider.generateThumbnailRepresentations(url: url) { image in
                         if let image = image {
                             cell.mainImageView.image = image
                             self.cells[indexPath.row].thumbnail = image.pngData()
                             if let data = image.pngData() {
-                                let _ = self.dataProvider.saveDataToFile(fileName: name, fileExt: "png", data: data)
+                                let _ = self.dataProvider.saveDataToFile(fileName: name, fileExt: .png, data: data)
                             }
                         }
                     }
                 } else {
                     if let data = cells[indexPath.row].data {
-                        if dataProvider.saveDataToFile(fileName: name, fileExt: "usdz", data: data) {
-                            if let url = dataProvider.getUrlFile(fileName: name, fileExt: "usdz"),
+                        if dataProvider.saveDataToFile(fileName: name, fileExt: .usdz, data: data) {
+                            if let url = dataProvider.getUrlFile(fileName: name, fileExt: .usdz),
                                 fileManager.fileExists(atPath: url.path) {
                                 dataProvider.generateThumbnailRepresentations(url: url) { image in
                                     if let image = image {
                                         cell.mainImageView.image = image
                                         self.cells[indexPath.row].thumbnail = image.pngData()
                                         if let data = image.pngData() {
-                                            let _ = self.dataProvider.saveDataToFile(fileName: name, fileExt: "png", data: data)
+                                            let _ = self.dataProvider.saveDataToFile(fileName: name, fileExt: .png, data: data)
                                         }
                                     } else {
                                         

@@ -52,7 +52,27 @@ class GlobalSettings {
     
 }
 
-enum httpMethod: String  {
+enum FileType: String {
+    case png = "png"
+    case usdz = "usdz"
+    case all = "*"
+    
+    var valueWithDot: String {
+        return ".\(self.rawValue)"
+    }
+    
+    var getPath: String {
+       switch self {
+        case .png : return "/image"
+        case .usdz : return "/Model"
+        case .all : return "/file"
+        
+        }
+    }
+    
+}
+
+enum HttpMethod: String  {
     case get = "GET"
     case post = "POST"
     case put = "PUT"

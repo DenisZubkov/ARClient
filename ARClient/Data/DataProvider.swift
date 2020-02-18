@@ -33,7 +33,7 @@ class DataProvider: NSObject {
             downloadTask = bgSession.downloadTask(with: request)
             downloadTask.earliestBeginDate = Date().addingTimeInterval(1)
             downloadTask.countOfBytesClientExpectsToSend = 512
-            downloadTask.countOfBytesClientExpectsToReceive = 100 * 1024 * 1024 // 100MB
+            downloadTask.countOfBytesClientExpectsToReceive = 20 * 1024 * 1024 // 20MB
             downloadTask.resume()
         }
     }
@@ -81,7 +81,7 @@ class DataProvider: NSObject {
         dataTask.resume()
     }
     
-    func getRequest(method: httpMethod, url: URL, body: Data?) -> URLRequest {
+    func getRequest(method: HttpMethod, url: URL, body: Data?) -> URLRequest {
         var request = URLRequest(url: url, cachePolicy: URLRequest.CachePolicy.reloadIgnoringCacheData, timeoutInterval: 10)
         guard let login = self.login, let password = self.password else { return request }
         let loginString = NSString(format: "%@:%@", login, password)
@@ -102,7 +102,7 @@ class DataProvider: NSObject {
         return request
     }
     
-    func runRequest(method: httpMethod, url: URL, body: Data?, completion: @escaping (Data?) -> Void) {
+    func runRequest(method: HttpMethod, url: URL, body: Data?, completion: @escaping (Data?) -> Void) {
         let request = getRequest(method: method, url: url, body: body)
         let dataTask = URLSession.shared.dataTask(with: request) { data, response, error in
             if error != nil {
@@ -189,9 +189,9 @@ class DataProvider: NSObject {
         }
     }
     
-    func saveDataToFile(fileName: String, fileExt: String, data: Data) -> Bool{
+    func saveDataToFile(fileName: String, fileExt: FileType, data: Data) -> Bool{
         let DocumentDirURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-        let fileURL = DocumentDirURL.appendingPathComponent(fileName).appendingPathExtension(fileExt)
+        let fileURL = DocumentDirURL.appendingPathComponent(fileName).appendingPathExtension(fileExt.rawValue)
         do {
             try data.write(to: fileURL)
             return true
@@ -200,13 +200,13 @@ class DataProvider: NSObject {
         }
     }
     
-    func getUrlFile(fileName: String, fileExt: String) -> URL? {
+    func getUrlFile(fileName: String, fileExt: FileType) -> URL? {
         let nsDocumentDirectory = FileManager.SearchPathDirectory.documentDirectory
         let nsUserDomainMask    = FileManager.SearchPathDomainMask.userDomainMask
         let paths               = NSSearchPathForDirectoriesInDomains(nsDocumentDirectory, nsUserDomainMask, true)
         if let dirPath          = paths.first
         {
-            let url = URL(fileURLWithPath: dirPath).appendingPathComponent("\(fileName).\(fileExt)")
+            let url = URL(fileURLWithPath: dirPath).appendingPathComponent("\(fileName).\(fileExt.rawValue)")
             return url
         }
         return nil

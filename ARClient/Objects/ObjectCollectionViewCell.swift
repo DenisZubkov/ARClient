@@ -20,6 +20,15 @@ class ObjectCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
+    let localImageView: UIImageView = {
+       let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = UIImage(named: "cloudSave")
+        imageView.tintColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+        return imageView
+    }()
+    
     let nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
@@ -54,6 +63,7 @@ class ObjectCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         addSubview(mainImageView)
+        addSubview(localImageView)
         addSubview(nameLabel)
         addSubview(commentLabel)
         addSubview(sizeLabel)
@@ -66,6 +76,13 @@ class ObjectCollectionViewCell: UICollectionViewCell {
         mainImageView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         mainImageView.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
         mainImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 2/5).isActive = true
+        
+        // localImageView constraints
+        localImageView.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 0).isActive = true
+        localImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15).isActive = true
+        localImageView.widthAnchor.constraint(equalToConstant: 33).isActive = true
+        localImageView.heightAnchor.constraint(equalToConstant: 33).isActive = true
+        
         
         // nameLabel constraints
         nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20).isActive = true

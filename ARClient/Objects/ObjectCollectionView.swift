@@ -47,43 +47,21 @@ class ObjectCollectionView: UICollectionView, UICollectionViewDelegate, UICollec
         cell.nameLabel.text = object.name
         cell.commentLabel.text = object.desc
         cell.sizeLabel.text = object.ispublic ?? 0 == 1 ? "Полный" : " Приватный"
+        cell.localImageView.isHidden = !(rootViewController.getfileURL(object: object, fileExt: .usdz) == nil)
         if let user = rootViewController.users.filter({$0.id == object.userId}).first {
             cell.dateLabel.text = user.username
         }
-        if let name = object.internalFilename,
-            let urlFile = dataProvider.getUrlFile(fileName: name, fileExt: "usdz"),
-            fileManager.fileExists(atPath: urlFile.path),
-            let urlThumbnail = dataProvider.getUrlFile(fileName: name, fileExt: "png"),
-            fileManager.fileExists(atPath: urlThumbnail.path) {
-            do {
-                let data = try Data(contentsOf: urlThumbnail)
-                cell.mainImageView.image = UIImage(data: data)
-            } catch {
-                cell.mainImageView.image = UIImage(named: "no-photo")
-            }
-        } else {
-            rootViewController.getFileFromWeb(object: object) { fileData, thumbnailData in
-                guard let name = object.internalFilename,
-                    let fileData = fileData,
-                    let thumbnailData = thumbnailData else {
-                        
-                    DispatchQueue.main.async {
-                        cell.mainImageView.image = UIImage(named: "no-photo")
-                    }
-                    return
-                }
+        rootViewController.getFileData(object: object, fileExt: .png) { data in
+            guard let data = data, let image = UIImage(data: data) else {
                 DispatchQueue.main.async {
-                    cell.mainImageView.image = UIImage(data: thumbnailData)
+                    cell.mainImageView.image = UIImage(named: "no-photo")
                 }
-                let _ = self.dataProvider.saveDataToFile(fileName: name, fileExt: "usdz", data: fileData)
-                let _ = self.dataProvider.saveDataToFile(fileName: name, fileExt: "png", data: thumbnailData)
-               
+                return
+            }
+            DispatchQueue.main.async {
+                cell.mainImageView.image = image
             }
         }
-        
-        
-        
-        
         return cell
     }
     
